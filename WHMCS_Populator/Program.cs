@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using RestSharp;
 
 namespace WHMCS_Populator
 {
@@ -15,18 +16,20 @@ namespace WHMCS_Populator
 			var userName = "zoran.prole";
 			var password = "cc03e747a6afbbcbf8be7668acfebee5";
 
-			WebRequest request = WebRequest.Create("http://178.248.110.214/whmcs/includes/api.php");
-			request.Credentials = new NetworkCredential(userName, password);
+            var client = new RestClient("http://178.248.110.214/whmcs/includes/api.php");
+            client.Authenticator = new HttpBasicAuthenticator(userName, password);
 
-			((HttpWebRequest)request).UserAgent = ".Net Framework Test";
-			request.Method = "POST";
-			request.ContentLength = 92;
-			request.ContentType = "application/x-www-form-urlencoded";
+            var request = new RestRequest(Method.POST);
+            request.AddParameter("action", "getclients");
+            request.AddParameter("responsetype", "json");
 
-			Stream dataStream = request.GetRequestStream();
-			// TODO Implement
+            request.AddHeader("Host", "178.248.110.214");
+            request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
 
-			WebResponse response = request.GetResponse();
+            var response = client.Execute(request) as RestResponse;
+            var content = response.Content;
+
+            Console.WriteLine(content);
         }
     }
 }

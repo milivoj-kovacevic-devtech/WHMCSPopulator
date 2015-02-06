@@ -7,6 +7,7 @@ using MySql.Data.MySqlClient;
 
 namespace WHMCS_Populator.Helper
 {
+    // This class might not be needed eventualy
     public class SqlHelper
     {
 
@@ -15,14 +16,4 @@ namespace WHMCS_Populator.Helper
             // TODO Should change this to more dinamic solution
             return new MySqlConnection(connectionString);
         }
-
-        public static string SelectClientsIds()
-        {
-            var queryBuilder = new SelectQueryBuilder();
-            string client = String.Empty; // TODO Change this to const with table name
-
-            queryBuilder.SelectFromTable(client);
-            queryBuilder.SelectColumns(client + ".id", client + ".parent_id"); // TODO Change this to match whmcs db
-        }
-    }
 }
