@@ -17,14 +17,15 @@ namespace WHMCS_Populator
 			var password = "cc03e747a6afbbcbf8be7668acfebee5";
 
             var client = new RestClient("http://178.248.110.214/whmcs/includes/api.php");
-            client.Authenticator = new HttpBasicAuthenticator(userName, password);
+			//client.Authenticator = new HttpBasicAuthenticator(userName, password);
 
             var request = new RestRequest(Method.POST);
+			request.AddParameter("username", userName);
+			request.AddParameter("password", password);
             request.AddParameter("action", "getclients");
             request.AddParameter("responsetype", "json");
 
-            request.AddHeader("Host", "178.248.110.214");
-            request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
+			request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
 
             var response = client.Execute(request) as RestResponse;
             var content = response.Content;

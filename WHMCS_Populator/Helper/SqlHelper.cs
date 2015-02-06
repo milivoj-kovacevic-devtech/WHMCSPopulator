@@ -8,12 +8,13 @@ using MySql.Data.MySqlClient;
 namespace WHMCS_Populator.Helper
 {
     // This class might not be needed eventualy
-    public class SqlHelper
-    {
+	public class SqlHelper
+	{
 
-        public static MySqlConnection WhmcsConnection(string connectionString)
-        {
-            // TODO Should change this to more dinamic solution
-            return new MySqlConnection(connectionString);
-        }
+		public static MySqlConnection WhmcsConnection(string connectionString)
+		{
+			// TODO Should change this to more dinamic solution
+			return new MySqlConnection(connectionString);
+		}
+	}
 }

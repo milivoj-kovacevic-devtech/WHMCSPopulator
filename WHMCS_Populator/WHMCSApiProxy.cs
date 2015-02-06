@@ -8,7 +8,6 @@ namespace WHMCS_Populator
 {
     class WHMCSApiProxy
     {
-        public 
         internal struct WHMCSApi
         {
             public const string AddClient = "addclient";
