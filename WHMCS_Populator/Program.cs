@@ -6,31 +6,33 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using RestSharp;
+using Newtonsoft.Json.Linq;
 
-namespace WHMCS_Populator
+namespace WhmcsPopulator
 {
     class Program
     {
         static void Main(string[] args)
         {
-			var userName = "zoran.prole";
-			var password = "cc03e747a6afbbcbf8be7668acfebee5";
+			ApiCredentials credentials = new ApiCredentials();
+			WhmcsApiProxy api = new WhmcsApiProxy(credentials);
 
-            var client = new RestClient("http://178.248.110.214/whmcs/includes/api.php");
-			//client.Authenticator = new HttpBasicAuthenticator(userName, password);
+			var ids = api.GetClientsIds();
+			Console.WriteLine("Client ids: " + ids);	
+		
+			WhmcsClient whmcsClient = new WhmcsClient();
+			whmcsClient.FirstName = "Test";
+			whmcsClient.LastName = "User";
+			whmcsClient.Email = "demo@whmcs.com";
+			whmcsClient.Address1 = "123 Demo Street";
+			whmcsClient.City = "Demo";
+			whmcsClient.State = "Florida";
+			whmcsClient.PostCode = "AB123";
+			whmcsClient.Country = "US";
+			whmcsClient.PhoneNumber = "123456789";
+			whmcsClient.Password = "demo";
 
-            var request = new RestRequest(Method.POST);
-			request.AddParameter("username", userName);
-			request.AddParameter("password", password);
-            request.AddParameter("action", "getclients");
-            request.AddParameter("responsetype", "json");
-
-			request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
-
-            var response = client.Execute(request) as RestResponse;
-            var content = response.Content;
-
-            Console.WriteLine(content);
+			api.AddClient(whmcsClient);
         }
     }
 }
