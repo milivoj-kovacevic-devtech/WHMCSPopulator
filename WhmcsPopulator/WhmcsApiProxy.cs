@@ -20,6 +20,8 @@ namespace WhmcsPopulator
 			Credentials = credentials;
 		}
 
+		// Clients API methods
+
 		// TODO This method should return list of ids
 		public String GetClientsIds()
 		{
@@ -60,8 +62,24 @@ namespace WhmcsPopulator
 			var response = client.Execute(request) as RestResponse;
 			var content = response.Content;
 
-			Console.WriteLine(content);
+			Console.WriteLine("Adding client response: " + content);
 		}
+
+		// Contacts API methods
+
+		public void AddContact(WhmcsContact whmcsContact)
+		{
+			var client = new RestClient(ApiUrl);
+			var request = InitializePostRequest(WhmcsApi.AddClient);
+			request.AddParameter("firstname", whmcsContact.FirstName);
+
+			var response = client.Execute(request) as RestResponse;
+			var content = response.Content;
+
+			Console.WriteLine("Adding contact response: " + content);
+		}
+
+		// Helper methods
 
 		private RestRequest InitializePostRequest(string apiAction)
 		{

@@ -14,6 +14,8 @@ namespace WhmcsPopulator
     {
         static void Main(string[] args)
         {
+			// TODO Implement error handling
+
 			ApiCredentials credentials = new ApiCredentials();
 			WhmcsApiProxy api = new WhmcsApiProxy(credentials);
 
