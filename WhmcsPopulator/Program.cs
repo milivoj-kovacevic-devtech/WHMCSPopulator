@@ -20,21 +20,23 @@ namespace WhmcsPopulator
 			WhmcsApiProxy api = new WhmcsApiProxy(credentials);
 
 			var ids = api.GetClientsIds();
-			Console.WriteLine("Client ids: " + ids);	
-		
-			WhmcsClient whmcsClient = new WhmcsClient();
-			whmcsClient.FirstName = "Test";
-			whmcsClient.LastName = "User";
-			whmcsClient.Email = "demo@whmcs.com";
-			whmcsClient.Address1 = "123 Demo Street";
-			whmcsClient.City = "Demo";
-			whmcsClient.State = "Florida";
-			whmcsClient.PostCode = "AB123";
-			whmcsClient.Country = "US";
-			whmcsClient.PhoneNumber = "123456789";
-			whmcsClient.Password = "demo";
+			Console.WriteLine("Client ids: " + ids);
 
-			api.AddClient(whmcsClient);
+			//WhmcsClient whmcsClient = new WhmcsClient()
+			//{
+			//	FirstName = "Test",
+			//	LastName = "User",
+			//	Email = "demo@whmcs.com",
+			//	Address1 = "123 Demo Street",
+			//	City = "Demo",
+			//	State = "Florida",
+			//	PostCode = "AB123",
+			//	Country = "US",
+			//	PhoneNumber = "123456789",
+			//	Password = "demo"
+			//};
+
+			//api.AddClient(whmcsClient);
         }
     }
 }

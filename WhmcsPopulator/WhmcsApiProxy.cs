@@ -79,6 +79,69 @@ namespace WhmcsPopulator
 			Console.WriteLine("Adding contact response: " + content);
 		}
 
+		// Products/orders API methods
+
+		// TODO Change this to return some kind of object
+		public String GetProducts(string productGroupId)
+		{
+			var client = new RestClient(ApiUrl);
+			var request = InitializePostRequest(WhmcsApi.GetProducts);
+
+			var response = client.Execute(request) as RestResponse;
+			var content = response.Content;
+
+			dynamic json = JValue.Parse(content);
+			var products = json.products.product;
+
+			// TODO Change this to be object
+			string ids = "";
+
+			foreach (var prod in products)
+			{
+				ids += prod.pid + ", ";
+			}
+			return ids;
+		}
+
+		public void AddOrder()
+		{
+			// TODO Check options for implementing this
+			// http://docs.whmcs.com/API:Add_Order
+		}
+
+		public void AcceptOrder()
+		{
+			var client = new RestClient(ApiUrl);
+			var request = InitializePostRequest(WhmcsApi.AcceptOrder);
+			request.AddParameter("orderid", ""); // TODO Change empty string to order id
+
+			var response = client.Execute(request) as RestResponse;
+			var content = response.Content;
+		}
+
+		// TODO Change this to return object
+		public string GetOrderStatuses()
+		{
+			var client = new RestClient(ApiUrl);
+			var request = InitializePostRequest(WhmcsApi.GetOrderStatuses);
+
+			var response = client.Execute(request) as RestResponse;
+			var content = response.Content;
+
+			dynamic json = JValue.Parse(content);
+			var statuses = json.statuses.status;
+
+			// TODO Change this to be object
+			string titles = "";
+
+			foreach (var st in statuses)
+			{
+				titles += st.id + ", ";
+			}
+			return titles;
+
+		}
+
 		// Helper methods
 
 		private RestRequest InitializePostRequest(string apiAction)
@@ -102,7 +165,11 @@ namespace WhmcsPopulator
 			public const string AddClient = "addclient";
             public const string AddContact = "addcontact";
 
+			public const string GetProducts = "getproducts";
+			public const string GetOrderStatuses = "getorderstatuses";
+
             public const string ModuleCreate = "modulecreate";
+			public static string AcceptOrder;
         }
     }
 }
