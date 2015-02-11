@@ -10,9 +10,8 @@ namespace WhmcsPopulator
 {
 	public class ApiCredentials
 	{
-		// TODO Change this to ConfigurationManager (for some reason not working in VS Express for Web)
-		public string UserName = ConfigurationSettings.AppSettings["WhmcsUser"];
-		public string Password = CreateMD5Hash(ConfigurationSettings.AppSettings["WhmcsPassword"]);
+		public string UserName = ConfigurationManager.AppSettings["WhmcsUser"];
+		public string Password = CreateMD5Hash(ConfigurationManager.AppSettings["WhmcsPassword"]);
 
 		public static string CreateMD5Hash(string sourceString)
 		{

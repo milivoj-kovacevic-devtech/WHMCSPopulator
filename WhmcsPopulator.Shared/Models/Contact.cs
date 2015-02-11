@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WhmcsPopulator
 {
-	public class WhmcsContact
+	public class Contact
 	{
 		// Required attributes
 

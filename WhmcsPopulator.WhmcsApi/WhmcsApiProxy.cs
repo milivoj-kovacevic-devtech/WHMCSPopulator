@@ -13,7 +13,7 @@ namespace WhmcsPopulator
     public class WhmcsApiProxy
     {
 		private ApiCredentials Credentials { get; set; }
-		private string ApiUrl = ConfigurationSettings.AppSettings["ApiUrl"]; // TODO Change to ConfigurationManager
+		private string ApiUrl = ConfigurationManager.AppSettings["ApiUrl"];
 
 		public WhmcsApiProxy(ApiCredentials credentials)
 		{
@@ -22,8 +22,7 @@ namespace WhmcsPopulator
 
 		// Clients API methods
 
-		// TODO This method should return list of ids
-		public String GetClientsIds()
+		public List<string> GetClientsIds()
 		{
 			var client = new RestClient(ApiUrl);
 			var request = InitializePostRequest(WhmcsApi.GetClients);
@@ -32,19 +31,26 @@ namespace WhmcsPopulator
 			var content = response.Content;
 
 			dynamic json = JValue.Parse(content);
+            // TODO Add error handling. If response is error, it should be processed. If there are no clients, it should be processed as well.
 			var clients = json.clients.client;
 
-			// TODO Change this to be object
-			string ids = "";
+            List<string> ids = new List<string>();
+            try
+            {
+                foreach (var cl in clients)
+                {
+                    ids.Add((String)cl.id);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error getting WHMCS clients: " + ex);
+            }
 
-			foreach (var cl in clients)
-			{
-				ids += cl.id + ", ";
-			}
 			return ids;
 		}
 
-		public void AddClient(WhmcsClient whmcsClient)
+		public void AddClient(Client whmcsClient)
 		{
 			var client = new RestClient(ApiUrl);
 			var request = InitializePostRequest(WhmcsApi.AddClient);
@@ -67,7 +73,7 @@ namespace WhmcsPopulator
 
 		// Contacts API methods
 
-		public void AddContact(WhmcsContact whmcsContact)
+		public void AddContact(Contact whmcsContact)
 		{
 			var client = new RestClient(ApiUrl);
 			var request = InitializePostRequest(WhmcsApi.AddClient);
@@ -169,7 +175,7 @@ namespace WhmcsPopulator
 			public const string GetOrderStatuses = "getorderstatuses";
 
             public const string ModuleCreate = "modulecreate";
-			public static string AcceptOrder;
+			public const string AcceptOrder = "acceptorder";
         }
     }
 }

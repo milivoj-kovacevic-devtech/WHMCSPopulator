@@ -5,8 +5,10 @@ using System.Text;
 
 namespace WhmcsPopulator
 {
-	public class WhmcsClient
+	public class Client
 	{
+        public string Id { get; set; }
+
 		// Required attributes
 
 		public string FirstName { get; set; }

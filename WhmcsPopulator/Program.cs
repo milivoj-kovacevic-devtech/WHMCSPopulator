@@ -5,22 +5,24 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using RestSharp;
-using Newtonsoft.Json.Linq;
 
 namespace WhmcsPopulator
 {
-    class Program
+    class MainClass
     {
         static void Main(string[] args)
         {
-			// TODO Implement error handling
+            // TODO Implement error handling
 
 			ApiCredentials credentials = new ApiCredentials();
 			WhmcsApiProxy api = new WhmcsApiProxy(credentials);
 
 			var ids = api.GetClientsIds();
-			Console.WriteLine("Client ids: " + ids);
+
+            foreach (var s in ids)
+            {
+                Console.WriteLine("Client id: {0}", s);
+            }
 
 			//WhmcsClient whmcsClient = new WhmcsClient()
 			//{
