@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using WhmcsPopulator.Shared;
 
 namespace WhmcsPopulator
 {
@@ -12,17 +13,17 @@ namespace WhmcsPopulator
     {
         static void Main(string[] args)
         {
-            // TODO Implement error handling
+            // TODO Implement error handling in whole solution
 
-			ApiCredentials credentials = new ApiCredentials();
-			WhmcsApiProxy api = new WhmcsApiProxy(credentials);
+            //ApiCredentials credentials = new ApiCredentials();
+            //WhmcsApiProxy api = new WhmcsApiProxy(credentials);
 
-			var ids = api.GetClientsIds();
+            //var ids = api.GetClientsIds();
 
-            foreach (var s in ids)
-            {
-                Console.WriteLine("Client id: {0}", s);
-            }
+            //foreach (var s in ids)
+            //{
+            //    Console.WriteLine("Client id: {0}", s);
+            //}
 
 			//WhmcsClient whmcsClient = new WhmcsClient()
 			//{
@@ -39,6 +40,15 @@ namespace WhmcsPopulator
 			//};
 
 			//api.AddClient(whmcsClient);
+
+            CsvCollector collector = new CsvCollector("D:/test.csv");
+
+            collector.ReadCsvFile();
+
+            foreach (var row in collector.CsvRows)
+            {
+                Console.WriteLine(row.ElementAt(0));
+            }
         }
     }
 }

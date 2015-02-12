@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CsvCollector.cs" />
+    <Compile Include="Helpers\CsvFileReader.cs" />
     <Compile Include="Helpers\CsvRow.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\Contact.cs" />
