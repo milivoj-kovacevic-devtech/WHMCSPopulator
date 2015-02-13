@@ -1,13 +1,15 @@
-﻿using System;
+﻿using FileHelpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 namespace WhmcsPopulator
 {
+    [DelimitedRecord(",")]
 	public class Client
 	{
-        public string Id { get; set; }
+        //public string Id { get; set; }
 
 		// Required attributes
 
@@ -31,6 +33,7 @@ namespace WhmcsPopulator
 		public string Language { get; set; }
 		public string GroupId { get; set; }
 		public string SecurityQuestionId { get; set; }
+        public string SecurityQuestionAnswer { get; set; }
 		public string Notes { get; set; }
 		public string CreditCardType { get; set; }
 		public string CardNumber { get; set; }

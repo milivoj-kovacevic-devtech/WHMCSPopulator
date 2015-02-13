@@ -50,6 +50,13 @@ namespace WhmcsPopulator
 			return ids;
 		}
 
+        //class ClientModel
+        //{
+        //    [RestParamName("firstname")]
+        //    public string FirstName { get; set; }
+
+        //}
+
 		public void AddClient(Client whmcsClient)
 		{
 			var client = new RestClient(ApiUrl);

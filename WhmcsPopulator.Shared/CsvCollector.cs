@@ -5,12 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WhmcsPopulator.Shared.Helpers;
+using FileHelpers;
+using System.Collections;
 
 namespace WhmcsPopulator.Shared
 {
     public class CsvCollector
     {
-        public List<CsvRow> CsvRows { get; set; }
+        public List<CsvRow> AllRows { get; set; }
         public string FileLocation { get; set; }
 
         public CsvCollector(string fileLocation)
@@ -20,17 +22,17 @@ namespace WhmcsPopulator.Shared
 
         public void ReadCsvFile()
         {
-            using (CsvFileReader reader = new CsvFileReader(FileLocation)) 
+            using (CsvFileReader reader = new CsvFileReader(FileLocation))
             {
-                CsvRows = new List<CsvRow>();
-                CsvRow row = new CsvRow();
+                AllRows = new List<CsvRow>();
+                var row = new CsvRow();
 
                 Console.WriteLine("Start processing csv file...");
 
                 while (reader.ReadRow(row))
                 {
                     Console.WriteLine(row.ElementAt(0));
-                    CsvRows.Add(row);
+                    AllRows.Add(row);
 
                     row = new CsvRow();
                     //// test
@@ -45,20 +47,37 @@ namespace WhmcsPopulator.Shared
             }
         }
 
-            /*
-        public void ReadCsvFile()
-        {
+        //public void ReadCsvFile()
+        //{
+        //    var reader = new StreamReader(File.OpenRead(FileLocation));
 
-             
-             * CsvRows = new List<CsvRow>();
-             * var row = new CsvRow();
-             * 
-             * while(reader.read())
-             * {
-             * row = GetRow()
-             * CsvRows.Add(row);
-             * }
-            
-        } */
+        //    CsvRows = new List<CsvRow>();
+        //    var row = new CsvRow();
+
+        //    while(!reader.EndOfStream)
+        //    {
+        //        var line = reader.ReadLine();
+        //        var values = line.Split(',');
+
+        //        foreach (var val in values)
+        //        {
+        //            row.Add(val);
+        //        }
+        //        CsvRows.Add(row);
+        //    }
+
+        //}
+
+        public IEnumerable<T> ReadWithFileHelper<T>()
+        {
+            var engine = new FileHelperEngine<T>();
+            T[] res = engine.ReadFile(FileLocation);
+
+            for (var i = 0; i < res.Length; i += 1)
+            {
+                //clients.Add(res[i]);
+                yield return res[i];
+            }
+        }
     }
 }
