@@ -44,10 +44,15 @@
       <HintPath>..\packages\FileHelpers.2.0.0.0\lib\Interop.Office.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="RestSharp">
       <HintPath>..\packages\RestSharp.105.0.1\lib\net4\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -56,13 +61,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\AcceptOrderRequest.cs" />
+    <Compile Include="Api\AddContactRequest.cs" />
+    <Compile Include="Api\AddOrderRequest.cs" />
+    <Compile Include="Api\AddProductRequest.cs" />
+    <Compile Include="Api\GetClients.cs" />
+    <Compile Include="Api\GetClientsDomainsRequest.cs" />
+    <Compile Include="Api\GetClientsProductsRequest.cs" />
+    <Compile Include="Api\GetOrdersRequest.cs" />
+    <Compile Include="Api\GetOrderStatuses.cs" />
+    <Compile Include="Api\GetProductsRequest.cs" />
+    <Compile Include="Api\RegisterDomainRequest.cs" />
     <Compile Include="CsvCollector.cs" />
+    <Compile Include="Helpers\ApiCredentials.cs" />
+    <Compile Include="Helpers\AttributeResolver.cs" />
+    <Compile Include="Api\AddClientRequest.cs" />
     <Compile Include="Helpers\CsvFileReader.cs" />
     <Compile Include="Helpers\CsvRow.cs" />
-    <Compile Include="Models\ApiParamName.cs" />
+    <Compile Include="Helpers\ApiParamNameAttribute.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\Contact.cs" />
-    <Compile Include="Models\WhmcsBaseRequest.cs" />
+    <Compile Include="Api\WhmcsBaseRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

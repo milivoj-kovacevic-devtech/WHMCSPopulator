@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using WhmcsPopulator.Shared;
-using WhmcsPopulator.Shared.Models;
+using WhmcsPopulator.Shared.Api;
 
 namespace WhmcsPopulator
 {
@@ -58,34 +58,34 @@ namespace WhmcsPopulator
 
             //var results = new List<Client>();
 
-            //var results = collector.ReadWithFileHelper<Client>();
-            
-            //Type type = typeof(Client);
-            //PropertyInfo[] properties = type.GetProperties();
+            var results = collector.ReadWithFileHelper<AddClientRequest>();
 
-            //foreach (var res in results)
-            //{
-            //    foreach (var property in properties)
-            //    {
-            //        Console.WriteLine("{0} = {1}", property.Name, property.GetValue(res, null));
-            //    }
-            //}
+            Type type = typeof(AddClientRequest);
+            PropertyInfo[] properties = type.GetProperties();
 
-            var baseReq = new WhmcsBaseRequest();
-            baseReq.UserName = credentials.UserName;
-            baseReq.Password = credentials.Password;
-            baseReq.ApiAction = "getclients";
-            baseReq.ResponseType = "json";
-
-            Type type = typeof(WhmcsBaseRequest);
-            var attrs = type.GetCustomAttributes(true);
-
-            foreach (var attr in attrs)
+            foreach (var res in results)
             {
-
-                var a = (ApiParamNameAttribute)attr;
-                Console.WriteLine(String.Format(a.Name));
+                foreach (var property in properties)
+                {
+                    Console.WriteLine("{0} = {1}", property.Name, property.GetValue(res, null));
+                }
             }
+
+            //var baseReq = new WhmcsBaseRequest();
+            //baseReq.UserName = credentials.UserName;
+            //baseReq.Password = credentials.Password;
+            //baseReq.ApiAction = "getclients";
+            //baseReq.ResponseType = "json";
+
+            //Type type = typeof(WhmcsBaseRequest);
+            //var attrs = type.GetCustomAttributes(true);
+
+            //foreach (var attr in attrs)
+            //{
+
+            //    var a = (ApiParamNameAttribute)attr;
+            //    Console.WriteLine(String.Format(a.Name));
+            //}
         }
     }
 }

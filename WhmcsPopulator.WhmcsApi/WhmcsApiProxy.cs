@@ -8,7 +8,7 @@ using RestSharp;
 using Newtonsoft.Json.Linq;
 using System.Configuration;
 
-namespace WhmcsPopulator
+namespace WhmcsPopulator.WhmcsApi
 {
     public class WhmcsApiProxy
     {
