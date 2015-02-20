@@ -36,6 +36,7 @@
       <HintPath>..\packages\MySql.Data.6.9.5\lib\net45\MySql.Data.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -44,6 +45,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\AcceptOrderRequest.cs" />
+    <Compile Include="Api\AddClientRequest.cs" />
+    <Compile Include="Api\AddContactRequest.cs" />
+    <Compile Include="Api\AddOrderRequest.cs" />
+    <Compile Include="Api\AddProductRequest.cs" />
+    <Compile Include="Api\GetClients.cs" />
+    <Compile Include="Api\GetClientsDomainsRequest.cs" />
+    <Compile Include="Api\GetClientsProductsRequest.cs" />
+    <Compile Include="Api\GetOrdersRequest.cs" />
+    <Compile Include="Api\GetOrderStatuses.cs" />
+    <Compile Include="Api\GetProductsRequest.cs" />
+    <Compile Include="Api\RegisterDomainRequest.cs" />
+    <Compile Include="Api\WhmcsBaseRequest.cs" />
+    <Compile Include="ConfigManager.cs" />
+    <Compile Include="CsvCollector.cs" />
+    <Compile Include="Helpers\ApiCredentials.cs" />
+    <Compile Include="Helpers\ApiParamNameAttribute.cs" />
+    <Compile Include="Helpers\AttributeResolver.cs" />
+    <Compile Include="Helpers\CsvFileReader.cs" />
+    <Compile Include="Helpers\CsvRow.cs" />
+    <Compile Include="Md5Hasher.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -55,10 +77,6 @@
     <ProjectReference Include="..\WhmcsPopulator.Shared\WhmcsPopulator.Shared.csproj">
       <Project>{4b773c5d-170a-40cb-9ee4-d1054f454726}</Project>
       <Name>WhmcsPopulator.Shared</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WhmcsPopulator.WhmcsApi\WhmcsPopulator.WhmcsApi.csproj">
-      <Project>{7bed5fcb-0a22-4aed-9404-fa2737bbf151}</Project>
-      <Name>WhmcsPopulator.WhmcsApi</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
