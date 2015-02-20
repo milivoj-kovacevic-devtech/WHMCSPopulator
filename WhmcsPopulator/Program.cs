@@ -14,6 +14,15 @@ namespace WhmcsPopulator
         static void Main(string[] args)
         {
             var clients = CsvCollector.Parse<AddClientRequest>(@"D:\test.csv");
+
+            foreach (var client in clients)
+            {
+                // foreach parser.getcontacts
+                    // insert contact
+                // foreach parser.getorders
+                    // insert order
+                    // accept order
+            }
         }
     }
 }
