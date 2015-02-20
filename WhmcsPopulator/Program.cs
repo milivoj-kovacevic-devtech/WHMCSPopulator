@@ -6,23 +6,34 @@ using System.Net;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using WhmcsPopulator.Helpers;
 
 namespace WhmcsPopulator
 {
-    class MainClass
-    {
-        static void Main(string[] args)
-        {
-            var clients = CsvCollector.Parse<AddClientRequest>(@"D:\test.csv");
+	class MainClass
+	{
+		private static readonly ApiController ApiController = new ApiController();
 
-            foreach (var client in clients)
-            {
-                // foreach parser.getcontacts
-                    // insert contact
-                // foreach parser.getorders
-                    // insert order
-                    // accept order
-            }
-        }
-    }
+		static void Main(string[] args)
+		{
+			var clients = CsvCollector.Parse<AddClientRequest>(@"D:\test.csv");
+
+
+			foreach (var client in clients)
+			{
+				string clientId;
+				if (!ApiController.InsertClient(client, out clientId)) continue;
+
+				// option 2
+				clientId = ApiController.InsertClient(client);
+				if (string.IsNullOrEmpty(clientId)) continue;
+
+				// foreach parser.getcontacts
+				// insert contact
+				// foreach parser.getorders
+				// insert order
+				// accept order
+			}
+		}
+	}
 }

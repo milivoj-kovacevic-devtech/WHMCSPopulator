@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WhmcsPopulator.Helpers;
 
 namespace WhmcsPopulator
 {
@@ -14,7 +15,9 @@ namespace WhmcsPopulator
         [FieldIgnored]
         public string ClientId;
         [ApiParamName("firstname")]
+		[MandatoryParameter]
         public string FirstName;
+		[MandatoryParameter]
         [ApiParamName("lastname")]
         public string LastName { get; set; }
         [ApiParamName("email")]

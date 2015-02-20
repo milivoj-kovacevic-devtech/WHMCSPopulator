@@ -11,8 +11,8 @@ namespace WhmcsPopulator
 	public static class ApiCredentials
 	{
         public static string Url = ConfigurationManager.AppSettings["ApiUrl"];
-		public static string UserName = ConfigurationManager.AppSettings["WhmcsUser"];
-		public static string Password = CreateMD5Hash(ConfigurationManager.AppSettings["WhmcsPassword"]);
+		public static string UserName = ConfigurationManager.AppSettings["WhmcsAdmin"];
+		public static string Password = CreateMD5Hash(ConfigurationManager.AppSettings["WhmcsAdminPassword"]);
 
 		private static string CreateMD5Hash(string sourceString)
 		{

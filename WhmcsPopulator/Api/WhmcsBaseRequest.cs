@@ -15,10 +15,13 @@ namespace WhmcsPopulator
         // TODO Implement methods for sending request here and in subclasses
 
         [FieldIgnored]
+		[ApiParamName("username")]
         public string UserName;
         [FieldIgnored]
+		[ApiParamName("password")]
         public string Password;
         [FieldIgnored]
+		[ApiParamName("responsetype")]
         public string ResponseType;
 
         [FieldIgnored]

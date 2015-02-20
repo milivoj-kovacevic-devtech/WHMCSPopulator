@@ -76,6 +76,7 @@
     <Compile Include="Api\GetProductsRequest.cs" />
     <Compile Include="Api\RegisterDomainRequest.cs" />
     <Compile Include="Api\WhmcsBaseRequest.cs" />
+    <Compile Include="Helpers\ApiController.cs" />
     <Compile Include="Helpers\ConfigManager.cs" />
     <Compile Include="Helpers\CsvCollector.cs" />
     <Compile Include="Helpers\ApiCredentials.cs" />
