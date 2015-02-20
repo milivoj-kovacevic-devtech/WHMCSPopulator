@@ -58,14 +58,14 @@
     <Compile Include="Api\GetProductsRequest.cs" />
     <Compile Include="Api\RegisterDomainRequest.cs" />
     <Compile Include="Api\WhmcsBaseRequest.cs" />
-    <Compile Include="ConfigManager.cs" />
-    <Compile Include="CsvCollector.cs" />
+    <Compile Include="Helpers\ConfigManager.cs" />
+    <Compile Include="Helpers\CsvCollector.cs" />
     <Compile Include="Helpers\ApiCredentials.cs" />
     <Compile Include="Helpers\ApiParamNameAttribute.cs" />
     <Compile Include="Helpers\AttributeResolver.cs" />
     <Compile Include="Helpers\CsvFileReader.cs" />
     <Compile Include="Helpers\CsvRow.cs" />
-    <Compile Include="Md5Hasher.cs" />
+    <Compile Include="Helpers\Md5Hasher.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

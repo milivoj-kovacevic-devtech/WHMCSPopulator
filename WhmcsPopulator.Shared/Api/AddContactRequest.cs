@@ -36,7 +36,7 @@ namespace WhmcsPopulator.Shared.Api
         [ApiParamName("phonenumber")]
         public string PhoneNumber { get; set; }
         [ApiParamName("password2")]
-        public string Password { get; set; } // If creating sub-account
+        public string Password2 { get; set; } // If creating sub-account
         [ApiParamName("permissions")]
         public string Permissions { get; set; } // Can specify sub-account permissions eg manageproducts,managedomains
         [ApiParamName("generalemails")]
