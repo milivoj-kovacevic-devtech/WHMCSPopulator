@@ -15,67 +15,76 @@ namespace WhmcsPopulator.Shared.Api
         // TODO Implement methods for sending request here and in subclasses
 
 
-        [ApiParamName("username")]
         public string UserName { get; set; }
-        [ApiParamName("password")]
         public string Password { get; set; }
-        [ApiParamName("action")]
-        public string ApiAction { get; set; }
-        [ApiParamName("responsetype")]
         public string ResponseType { get; set; }
 
-        public string Response { get; set; }
+        [ApiParamName("action")]
+        public string ApiAction { get; set; }
+
+        public RestClient ApiRestClient { get; set; }
+        public RestResponse Response { get; set; }
 
         public WhmcsBaseRequest()
         {
             UserName = ApiCredentials.UserName;
             Password = ApiCredentials.Password;
             ResponseType = "json";
+
+            ApiRestClient = new RestClient(ApiCredentials.Url);
         }
 
         public void Send()
         {
-            var client = new RestClient(ApiCredentials.Url);
+            var request = InitializeRequest();
 
+            SetParameters(request);
+
+            Response = ApiRestClient.Execute(request) as RestResponse;
+        }
+
+        protected void SetParameters(RestRequest request)
+        {
+            // TODO Check if this is needed
             Type type = this.GetType();
             var properties = type.GetProperties();
 
-            var request = new RestRequest(Method.POST);
             foreach (var prop in properties)
-            {   
+            {
                 // TODO Resolve attributes and use it to send request
                 var attr = prop.GetCustomAttributes(true);
-                request.AddParameter(attr.ToString(), prop);                
+                request.AddParameter(attr.ToString(), prop);
             }
-
-            var response = client.Execute(request) as RestResponse;
-            ProcessResponse(response); // TODO TODO TODO TODO TODO TODO
         }
 
-        protected string ProcessResponse(RestResponse response)
+        protected RestRequest InitializeRequest()
+        {
+            var request = new RestRequest(Method.POST);
+            request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
+            request.AddParameter("responsetype", ResponseType);
+            request.AddParameter("username", UserName);
+            request.AddParameter("password", Password);
+
+            return request;
+        }
+
+        public bool IsSuccess(RestResponse response)
         {
             var content = response.Content;
-
             dynamic responseJson = JValue.Parse(content);
             
             if (responseJson.result == "error")
-                return "Error sending request: " + responseJson.message;
-
-            // TODO Resolve success
-            return responseJson.result;
-
+                return false;
+            return true;
         }
 
         internal struct WhmcsApi
         {
             public const string GetClients = "getclients";
-
             public const string AddClient = "addclient";
             public const string AddContact = "addcontact";
-
             public const string GetClientsProducts = "getclientsproducts";
             public const string GetClientsDomains = "getclientsdomains";
-
             public const string RegisterDomain = "registerdomain";
 
             public const string AddOrder = "addorder";

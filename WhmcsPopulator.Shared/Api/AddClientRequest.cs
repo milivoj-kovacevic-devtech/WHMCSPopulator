@@ -11,8 +11,10 @@ namespace WhmcsPopulator.Shared.Api
     public class AddClientRequest : WhmcsBaseRequest
     {
         // Required parameters
+        [FieldIgnored()]
         [ApiParamName("firstname")]
-        public string FirstName { get; set; }
+        public string FirstName;
+        [FieldIgnored()]
         [ApiParamName("lastname")]
         public string LastName { get; set; }
         [ApiParamName("email")]
