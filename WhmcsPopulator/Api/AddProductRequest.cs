@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WhmcsPopulator.Shared.Api
+namespace WhmcsPopulator
 {
     // May not be needed, product could be added via admin panel
     public class AddProductRequest : WhmcsBaseRequest

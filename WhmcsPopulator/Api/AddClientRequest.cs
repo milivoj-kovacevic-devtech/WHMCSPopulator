@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WhmcsPopulator.Shared.Api
+namespace WhmcsPopulator
 {
     [DelimitedRecord(",")]
     public class AddClientRequest : WhmcsBaseRequest

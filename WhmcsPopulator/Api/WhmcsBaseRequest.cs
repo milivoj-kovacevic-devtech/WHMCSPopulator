@@ -8,7 +8,7 @@ using System.Configuration;
 using FileHelpers;
 using Newtonsoft.Json.Linq;
 
-namespace WhmcsPopulator.Shared.Api
+namespace WhmcsPopulator
 {
     public class WhmcsBaseRequest
     {

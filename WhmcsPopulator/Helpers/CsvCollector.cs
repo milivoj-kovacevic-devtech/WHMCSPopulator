@@ -4,15 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WhmcsPopulator.Shared.Helpers;
 using FileHelpers;
 using System.Collections;
 
-namespace WhmcsPopulator.Shared
+namespace WhmcsPopulator
 {
     public static class CsvCollector
     {
-        public static IEnumerable<T> ReadWithFileHelper<T>(string fileLocation)
+        public static IEnumerable<T> Parse<T>(string fileLocation)
         {
             var engine = new FileHelperEngine<T>();
             T[] res = engine.ReadFile(fileLocation);

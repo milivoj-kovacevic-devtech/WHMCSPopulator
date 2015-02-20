@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WhmcsPopulator.Shared.Helpers
+namespace WhmcsPopulator
 {
     public class CsvFileReader : StreamReader
     {

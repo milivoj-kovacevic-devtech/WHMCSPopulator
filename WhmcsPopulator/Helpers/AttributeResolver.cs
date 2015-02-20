@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WhmcsPopulator.Shared.Api;
 
-namespace WhmcsPopulator.Shared.Helpers
+namespace WhmcsPopulator
 {
     public static class AttributeResolver
     {

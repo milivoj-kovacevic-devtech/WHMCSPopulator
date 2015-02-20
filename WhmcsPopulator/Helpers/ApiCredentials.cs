@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
 
-namespace WhmcsPopulator.Shared
+namespace WhmcsPopulator
 {
 	public static class ApiCredentials
 	{
