@@ -10,12 +10,12 @@ namespace WhmcsPopulator
 		static void Main(string[] args)
 		{
 			var clients = CsvCollector.Parse<AddClientRequest>(@"D:\test.csv");
-
+		    var controller = new ApiController();
 
 			foreach (var client in clients)
 			{
 				string clientId;
-				if (!ApiController.InsertClient(client, out clientId)) continue;
+				if (!controller.InsertClient(client, out clientId)) continue;
 
 				// option 2 (maybe to use instead of 2 lines above)
                 //clientId = ApiController.InsertClient(client);

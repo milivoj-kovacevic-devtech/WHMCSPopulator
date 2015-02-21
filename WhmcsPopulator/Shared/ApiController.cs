@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using log4net;
 using Newtonsoft.Json.Linq;
@@ -24,10 +26,14 @@ namespace WhmcsPopulator.Shared
 			clientId = string.Empty;
 			try
 			{
-				var penis = ResolveRequest(client);
-				var response = _restClient.Execute(penis) as RestResponse;
-				if (!IsSuccess(response)) throw new Exception("API returns error.");
-				clientId = response.Content; // TODO Change to id from response
+				var request = ResolveRequest(client);
+				var response = _restClient.Execute(request) as RestResponse;
+
+			    dynamic processedResponse = ProcessResponse(response);
+
+				if (!IsSuccess(processedResponse)) throw new Exception("API returns error.");
+			    clientId = processedResponse.clientid;
+                    Console.WriteLine("Client with ID " + clientId + " added to WHMCS.");
 			}
 			catch (Exception ex)
 			{
@@ -57,14 +63,14 @@ namespace WhmcsPopulator.Shared
             var request = new RestRequest(Method.POST);
             request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
 
-			foreach (var prop in data.GetType().GetFields())
+			foreach (var field in data.GetType().GetFields())
 			{
-				var attr = prop.GetCustomAttributes(typeof(ApiParamNameAttribute), true).FirstOrDefault();
+				var attr = field.GetCustomAttributes(typeof(ApiParamNameAttribute), true).FirstOrDefault();
 				if (attr == null) continue;
 				var key = ((ApiParamNameAttribute)attr).Name;
 
-				var mandatory = prop.GetCustomAttributes(typeof(MandatoryParameterAttribute), true).FirstOrDefault() != null;
-				var value = prop.GetValue(data);
+				var mandatory = field.GetCustomAttributes(typeof(MandatoryParameterAttribute), true).FirstOrDefault() != null;
+				var value = field.GetValue(data);
 				if (mandatory && value == null) throw new Exception("Mandatory field cannot be null.");
 				
 				request.AddParameter(key, value);
@@ -72,15 +78,17 @@ namespace WhmcsPopulator.Shared
 			return request;
 		}
 
-	    private bool IsSuccess(RestResponse response)
-        {
-            // TODO Create method which will do the json deserialization
-            var content = response.Content;
-            dynamic responseJson = JValue.Parse(content);
+	    private JToken ProcessResponse(RestResponse response)
+	    {
+	        var content = response.Content;
+	        var responseJson = JValue.Parse(content);
 
-            if (responseJson.result == "error")
-                return false;
-            return true;
+	        return responseJson;
+	    }
+
+	    private bool IsSuccess(dynamic responseJson)
+        {
+            return responseJson.result == "success";
         }
 
 	}
