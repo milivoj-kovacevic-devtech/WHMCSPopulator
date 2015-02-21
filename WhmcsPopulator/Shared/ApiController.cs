@@ -1,14 +1,15 @@
-﻿using RestSharp;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using log4net;
+using Newtonsoft.Json.Linq;
+using RestSharp;
 
-namespace WhmcsPopulator.Helpers
+namespace WhmcsPopulator.Shared
 {
 	public class ApiController
 	{
+        private static readonly ILog Log = LogManager.GetLogger(typeof(ApiController));
+
 		private RestClient _restClient;
 
 		public ApiController()
@@ -29,7 +30,7 @@ namespace WhmcsPopulator.Helpers
 			}
 			catch (Exception ex)
 			{
-				//logujMe(ex.Message)
+			    Log.Error("Client not added due to error: " + ex.Message);
 				success = false;
 			}
 			return success;
@@ -52,7 +53,7 @@ namespace WhmcsPopulator.Helpers
 
 		private RestRequest ResolveRequest(object data)
 		{
-			RestRequest request = new RestSharp.RestRequest();
+			var request = new RestRequest();
 			foreach (var prop in data.GetType().GetFields())
 			{
 				var attr = prop.GetCustomAttributes(typeof(ApiParamNameAttribute), true).FirstOrDefault();
@@ -67,5 +68,16 @@ namespace WhmcsPopulator.Helpers
 			}
 			return request;
 		}
+
+        private bool IsSuccess(RestResponse response)
+        {
+            var content = response.Content;
+            dynamic responseJson = JValue.Parse(content);
+
+            if (responseJson.result == "error")
+                return false;
+            return true;
+        }
+
 	}
 }

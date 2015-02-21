@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WhmcsPopulator.Helpers;
+using WhmcsPopulator.Shared;
 
 namespace WhmcsPopulator
 {
@@ -14,26 +14,34 @@ namespace WhmcsPopulator
         // Required parameters
         [FieldIgnored]
         public string ClientId;
+        [MandatoryParameter]
         [ApiParamName("firstname")]
-		[MandatoryParameter]
         public string FirstName;
-		[MandatoryParameter]
+        [MandatoryParameter]
         [ApiParamName("lastname")]
         public string LastName { get; set; }
+        [MandatoryParameter]
         [ApiParamName("email")]
         public string Email { get; set; }
+        [MandatoryParameter]
         [ApiParamName("address1")]
         public string Address1 { get; set; }
+        [MandatoryParameter]
         [ApiParamName("city")]
         public string City { get; set; }
+        [MandatoryParameter]
         [ApiParamName("state")]
         public string State { get; set; }
+        [MandatoryParameter]
         [ApiParamName("postcode")]
         public string PostCode { get; set; }
+        [MandatoryParameter]
         [ApiParamName("country")]
         public string Country { get; set; } // Two letter ISO country code
+        [MandatoryParameter]
         [ApiParamName("phonenumber")]
         public string PhoneNumber { get; set; }
+        [MandatoryParameter]
         [ApiParamName("password2")]
         public string Password2 { get; set; }
         

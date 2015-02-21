@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace WhmcsPopulator.Helpers
+namespace WhmcsPopulator.Shared
 {
 	public class MandatoryParameterAttribute : Attribute
 	{

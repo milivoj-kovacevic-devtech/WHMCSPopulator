@@ -1,12 +1,7 @@
 ﻿using RestSharp;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Configuration;
 using FileHelpers;
-using Newtonsoft.Json.Linq;
+using WhmcsPopulator.Shared;
 
 namespace WhmcsPopulator
 {
@@ -15,16 +10,20 @@ namespace WhmcsPopulator
         // TODO Implement methods for sending request here and in subclasses
 
         [FieldIgnored]
+        [MandatoryParameter]
 		[ApiParamName("username")]
         public string UserName;
         [FieldIgnored]
+        [MandatoryParameter]
 		[ApiParamName("password")]
         public string Password;
         [FieldIgnored]
+        [MandatoryParameter]
 		[ApiParamName("responsetype")]
         public string ResponseType;
 
         [FieldIgnored]
+        [MandatoryParameter]
         [ApiParamName("action")]
         public string ApiAction;
 
@@ -74,16 +73,6 @@ namespace WhmcsPopulator
             request.AddParameter("password", Password);
 
             return request;
-        }
-
-        public bool IsSuccess(RestResponse response)
-        {
-            var content = response.Content;
-            dynamic responseJson = JValue.Parse(content);
-            
-            if (responseJson.result == "error")
-                return false;
-            return true;
         }
 
         internal struct WhmcsApi
