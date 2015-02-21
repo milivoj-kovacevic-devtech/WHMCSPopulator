@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+﻿using WhmcsPopulator.Api;
 using WhmcsPopulator.Shared;
 
 namespace WhmcsPopulator
@@ -24,9 +17,11 @@ namespace WhmcsPopulator
 				string clientId;
 				if (!ApiController.InsertClient(client, out clientId)) continue;
 
-				// option 2
-				clientId = ApiController.InsertClient(client);
-				if (string.IsNullOrEmpty(clientId)) continue;
+				// option 2 (maybe to use instead of 2 lines above)
+                //clientId = ApiController.InsertClient(client);
+                //if (string.IsNullOrEmpty(clientId)) continue;
+
+                // steps to be implemented are below
 
 				// foreach parser.getcontacts
 				// insert contact

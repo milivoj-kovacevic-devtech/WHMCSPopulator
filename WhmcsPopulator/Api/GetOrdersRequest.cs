@@ -1,27 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WhmcsPopulator
+﻿namespace WhmcsPopulator.Api
 {
     public class GetOrdersRequest : WhmcsBaseRequest
     {
         // Optional attributes
         [ApiParamName("id")] // to get a specific order id only
-        public string Id { get; set; }
+        public string Id;
         [ApiParamName("userid")] // to get all orders for a specific client id
-        public string UserId { get; set; }
+        public string UserId;
         [ApiParamName("status")] // to get all orders in a specific status
-        public string Status { get; set; }
+        public string Status;
 
         public GetOrdersRequest()
             : base()
         {
             ApiAction = WhmcsApi.GetOrders;
         }
-
-         // TODO Process response
     }
 }

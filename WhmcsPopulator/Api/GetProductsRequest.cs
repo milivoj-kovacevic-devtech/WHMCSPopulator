@@ -1,27 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WhmcsPopulator
+﻿namespace WhmcsPopulator.Api
 {
     public class GetProductsRequest : WhmcsBaseRequest
     {
         // Optional parameters
         [ApiParamName("pid")]
-        public string ProductId { get; set; }
+        public string ProductId;
         [ApiParamName("gid")]
-        public string GroupId { get; set; }
-        [ApiParamName("module")] // can be passed to just retrieve products assigned to a specific module
-        public string Module { get; set; }
+        public string GroupId;
+
+        [ApiParamName("module")]    // can be passed to just retrieve products assigned to a specific module
+        public string Module;       // could be usefull since only cPanel product will be used
 
         public GetProductsRequest()
             : base()
         {
             ApiAction = WhmcsApi.GetProducts;
         }
-
-        // TODO Process response
     }
 }

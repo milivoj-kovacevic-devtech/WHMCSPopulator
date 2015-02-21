@@ -7,8 +7,6 @@ namespace WhmcsPopulator
 {
     public class WhmcsBaseRequest
     {
-        // TODO Implement methods for sending request here and in subclasses
-
         [FieldIgnored]
         [MandatoryParameter]
 		[ApiParamName("username")]
@@ -28,51 +26,13 @@ namespace WhmcsPopulator
         public string ApiAction;
 
         [FieldIgnored]
-        public RestClient ApiRestClient; // TODO Check if this should be here
-        [FieldIgnored]
         public RestResponse Response;
 
         public WhmcsBaseRequest()
         {
-            UserName = ApiCredentials.UserName;
-            Password = ApiCredentials.Password;
+            UserName = ConfigManager.AdminUsername;
+            Password = ConfigManager.AdminPassword;
             ResponseType = "json";
-
-            ApiRestClient = new RestClient(ApiCredentials.Url);
-        }
-
-        public void Send()
-        {
-            var request = InitializeRequest();
-
-            SetParameters(request);
-
-            Response = ApiRestClient.Execute(request) as RestResponse;
-        }
-
-        protected void SetParameters(RestRequest request)
-        {
-            // TODO Check if this is needed
-            Type type = this.GetType();
-            var properties = type.GetProperties();
-
-            foreach (var prop in properties)
-            {
-                // TODO Resolve attributes and use it to send request
-                var attr = prop.GetCustomAttributes(true);
-                request.AddParameter(attr.ToString(), prop);
-            }
-        }
-
-        protected RestRequest InitializeRequest()
-        {
-            var request = new RestRequest(Method.POST);
-            request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
-            request.AddParameter("responsetype", ResponseType);
-            request.AddParameter("username", UserName);
-            request.AddParameter("password", Password);
-
-            return request;
         }
 
         internal struct WhmcsApi

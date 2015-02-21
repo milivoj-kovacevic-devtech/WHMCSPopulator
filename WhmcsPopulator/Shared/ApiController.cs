@@ -3,6 +3,7 @@ using System.Linq;
 using log4net;
 using Newtonsoft.Json.Linq;
 using RestSharp;
+using WhmcsPopulator.Api;
 
 namespace WhmcsPopulator.Shared
 {
@@ -14,7 +15,7 @@ namespace WhmcsPopulator.Shared
 
 		public ApiController()
 		{
-			_restClient = new RestClient(ApiCredentials.Url);
+			_restClient = new RestClient(ConfigManager.ApiUrl);
 		}
 
 		public bool InsertClient(AddClientRequest client, out string clientId)
@@ -24,9 +25,9 @@ namespace WhmcsPopulator.Shared
 			try
 			{
 				var penis = ResolveRequest(client);
-				var response = _restClient.Execute(penis);
-				if (response.Content == "penis") throw new Exception("api fail");
-				clientId = response.Content;
+				var response = _restClient.Execute(penis) as RestResponse;
+				if (!IsSuccess(response)) throw new Exception("API returns error.");
+				clientId = response.Content; // TODO Change to id from response
 			}
 			catch (Exception ex)
 			{
@@ -53,7 +54,9 @@ namespace WhmcsPopulator.Shared
 
 		private RestRequest ResolveRequest(object data)
 		{
-			var request = new RestRequest();
+            var request = new RestRequest(Method.POST);
+            request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
+
 			foreach (var prop in data.GetType().GetFields())
 			{
 				var attr = prop.GetCustomAttributes(typeof(ApiParamNameAttribute), true).FirstOrDefault();
@@ -69,8 +72,9 @@ namespace WhmcsPopulator.Shared
 			return request;
 		}
 
-        private bool IsSuccess(RestResponse response)
+	    private bool IsSuccess(RestResponse response)
         {
+            // TODO Create method which will do the json deserialization
             var content = response.Content;
             dynamic responseJson = JValue.Parse(content);
 

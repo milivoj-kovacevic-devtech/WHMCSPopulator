@@ -1,56 +1,52 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using WhmcsPopulator.Shared;
 
-namespace WhmcsPopulator
+namespace WhmcsPopulator.Api
 {
     class AddContactRequest : WhmcsBaseRequest
     {
         // Required parameters
+        [MandatoryParameter]
         [ApiParamName("clientid")]
-        public string ClientId { get; set; }
+        public string ClientId;
 
         // Optional parameters
         [ApiParamName("firstname")]
-        public string FirstName { get; set; }
+        public string FirstName;
         [ApiParamName("lastname")]
-        public string LastName { get; set; }
+        public string LastName;
         [ApiParamName("companyname")]
-        public string CompanyName { get; set; }
+        public string CompanyName;
         [ApiParamName("email")]
-        public string Email { get; set; }
+        public string Email;
         [ApiParamName("address1")]
-        public string Address1 { get; set; }
+        public string Address1;
         [ApiParamName("address2")]
-        public string Address2 { get; set; }
+        public string Address2;
         [ApiParamName("city")]
-        public string City { get; set; }
+        public string City;
         [ApiParamName("state")]
-        public string State { get; set; }
+        public string State;
         [ApiParamName("postcode")]
-        public string PostCode { get; set; }
+        public string PostCode;
         [ApiParamName("country")]
-        public string Country { get; set; } // Two letter ISO country code
+        public string Country; // Two letter ISO country code
         [ApiParamName("phonenumber")]
-        public string PhoneNumber { get; set; }
+        public string PhoneNumber;
         [ApiParamName("password2")]
-        public string Password { get; set; } // If creating sub-account
+        public string Password; // If creating sub-account
         [ApiParamName("permissions")]
-        public string Permissions { get; set; } // Can specify sub-account permissions eg manageproducts,managedomains
+        public string Permissions; // Can specify sub-account permissions eg manageproducts,managedomains
         [ApiParamName("generalemails")]
-        public string GeneralEmails { get; set; } // Set true to receive general email types
+        public string GeneralEmails; // Set true to receive general email types
         [ApiParamName("productemails")]
-        public string ProductEmails { get; set; } // Set true to receive product related emails
+        public string ProductEmails; // Set true to receive product related emails
         [ApiParamName("domainemails")]
-        public string DomainEmails { get; set; } // Set true to receive domain related emails
+        public string DomainEmails; // Set true to receive domain related emails
         [ApiParamName("invoiceemails")]
-        public string InvoiceEmails { get; set; } // Set true to receive billing related emails
+        public string InvoiceEmails; // Set true to receive billing related emails
         [ApiParamName("supportemails")]
-        public string SupportEmails { get; set; } // Set true to receive support ticket related emails
+        public string SupportEmails; // Set true to receive support ticket related emails
 
-        // TODO Check if something is missing and process response
         public AddContactRequest() 
             : base()
         {

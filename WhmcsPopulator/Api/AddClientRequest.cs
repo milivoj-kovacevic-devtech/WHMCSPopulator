@@ -1,12 +1,7 @@
 ﻿using FileHelpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WhmcsPopulator.Shared;
 
-namespace WhmcsPopulator
+namespace WhmcsPopulator.Api
 {
     [DelimitedRecord(",")]
     public class AddClientRequest : WhmcsBaseRequest
@@ -19,74 +14,72 @@ namespace WhmcsPopulator
         public string FirstName;
         [MandatoryParameter]
         [ApiParamName("lastname")]
-        public string LastName { get; set; }
+        public string LastName;
         [MandatoryParameter]
         [ApiParamName("email")]
-        public string Email { get; set; }
+        public string Email;
         [MandatoryParameter]
         [ApiParamName("address1")]
-        public string Address1 { get; set; }
+        public string Address1;
         [MandatoryParameter]
         [ApiParamName("city")]
-        public string City { get; set; }
+        public string City;
         [MandatoryParameter]
         [ApiParamName("state")]
-        public string State { get; set; }
+        public string State;
         [MandatoryParameter]
         [ApiParamName("postcode")]
-        public string PostCode { get; set; }
+        public string PostCode;
         [MandatoryParameter]
         [ApiParamName("country")]
-        public string Country { get; set; } // Two letter ISO country code
+        public string Country; // Two letter ISO country code
         [MandatoryParameter]
         [ApiParamName("phonenumber")]
-        public string PhoneNumber { get; set; }
+        public string PhoneNumber;
         [MandatoryParameter]
         [ApiParamName("password2")]
-        public string Password2 { get; set; }
+        public string Password2;
         
         // Optional parameters
         [ApiParamName("companyname")]
-        public string CompanyName { get; set; }
+        public string CompanyName;
         [ApiParamName("address2")]
-        public string Address2 { get; set; }
+        public string Address2;
         [ApiParamName("currency")]
-        public string Currency { get; set; }
+        public string Currency;
         [ApiParamName("clientip")]
-        public string ClientIp { get; set; }
+        public string ClientIp;
         [ApiParamName("language")]
-        public string Language { get; set; }
+        public string Language;
         [ApiParamName("groupid")]
-        public string GroupId { get; set; }
+        public string GroupId;
         [ApiParamName("securityqid")]
-        public string SecurityQuestionId { get; set; }
+        public string SecurityQuestionId;
         [ApiParamName("securityqans")]
-        public string SecurityQuestionAnswer { get; set; }
+        public string SecurityQuestionAnswer;
         [ApiParamName("notes")]
-        public string Notes { get; set; }
+        public string Notes;
         [ApiParamName("cctype")]
-        public string CreditCardType { get; set; }
+        public string CreditCardType;
         [ApiParamName("cardnum")]
-        public string CardNumber { get; set; }
+        public string CardNumber;
         [ApiParamName("expdate")]
-        public string ExpDate { get; set; } // In the format MMYY
+        public string ExpDate; // In the format MMYY
         [ApiParamName("startdate")]
-        public string StartDate { get; set; }
+        public string StartDate;
         [ApiParamName("issuenumber")]
-        public string IssueNumber { get; set; }
+        public string IssueNumber;
         [ApiParamName("customfields")]
-        public string CustomFields { get; set; } // A base64 encoded serialized array of custom field values
+        public string CustomFields; // A base64 encoded serialized array of custom field values
         [ApiParamName("noemail")]
-        public string NoEmail { get; set; } // Pass as true to surpress the client signup welcome email sending
+        public string NoEmail; // Pass as true to surpress the client signup welcome email sending
         [ApiParamName("skipvalidation")]
-        public string SkipValidation { get; set; } // Set true to not validate or check required fields
+        public string SkipValidation; // Set true to not validate or check required fields
 
         public AddClientRequest()
             : base()
         {
             ApiAction = WhmcsApi.AddClient;
         }
-
-
     }
 }
