@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace WhmcsPopulator
+namespace WhmcsPopulator.Shared
 {
     public static class Md5Hasher
     {

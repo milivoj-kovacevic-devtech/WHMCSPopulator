@@ -77,7 +77,6 @@
     <Compile Include="Api\GetClientsDomainsRequest.cs" />
     <Compile Include="Api\GetClientsProductsRequest.cs" />
     <Compile Include="Api\GetOrdersRequest.cs" />
-    <Compile Include="Api\GetOrderStatuses.cs" />
     <Compile Include="Api\GetProductsRequest.cs" />
     <Compile Include="Api\RegisterDomainRequest.cs" />
     <Compile Include="Api\WhmcsBaseRequest.cs" />
@@ -85,9 +84,6 @@
     <Compile Include="Shared\ConfigManager.cs" />
     <Compile Include="Shared\CsvCollector.cs" />
     <Compile Include="Shared\ApiParamNameAttribute.cs" />
-    <Compile Include="Shared\AttributeResolver.cs" />
-    <Compile Include="Shared\CsvFileReader.cs" />
-    <Compile Include="Shared\CsvRow.cs" />
     <Compile Include="Shared\MandatoryParameterAttribute.cs" />
     <Compile Include="Shared\Md5Hasher.cs" />
     <Compile Include="Program.cs" />

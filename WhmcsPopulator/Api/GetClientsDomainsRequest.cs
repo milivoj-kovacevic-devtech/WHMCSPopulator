@@ -1,4 +1,6 @@
-﻿namespace WhmcsPopulator.Api
+﻿using WhmcsPopulator.Shared;
+
+namespace WhmcsPopulator.Api
 {
     public class GetClientsDomainsRequest : WhmcsBaseRequest
     {
