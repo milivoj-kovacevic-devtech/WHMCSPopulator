@@ -47,7 +47,6 @@ namespace WhmcsPopulator.Shared
 		{
 			var success = true;
 			contact.ClientId = clientId;
-
 			try
 			{
 				var request = ResolveRequest(contact);
@@ -69,7 +68,6 @@ namespace WhmcsPopulator.Shared
 		{
 			var success = true;
 			order.ClientId = clientId;
-
 			try
 			{
 				var request = ResolveRequest(order);
@@ -84,13 +82,28 @@ namespace WhmcsPopulator.Shared
 				Log.Error("Order not added due to error: " + ex.Message);
 				success = false;
 			}
-
 			return success;
 		}
 
-		public void AcceptOrder(string orderId)
+		public bool AcceptOrder(string orderId)
 		{
-			// accept previosly added order
+			var order = new AcceptOrderRequest(orderId);
+			var success = true;
+			try
+			{
+				var request = ResolveRequest(order);
+				var response = _restClient.Execute(request) as RestResponse;
+
+				dynamic processedResponse = ProcessResponse(response);
+
+				if (!IsSuccess(processedResponse)) throw new Exception("API returns error.");
+			}
+			catch (Exception ex)
+			{
+				Log.Error("Order not accepted due to error: " + ex.Message);
+				success = false;
+			}
+			return success;
 		}
 
 		private RestRequest ResolveRequest(object data)

@@ -1,4 +1,5 @@
-﻿using WhmcsPopulator.Api;
+﻿using System.Collections.Generic;
+using WhmcsPopulator.Api;
 using WhmcsPopulator.Shared;
 
 namespace WhmcsPopulator
@@ -10,7 +11,7 @@ namespace WhmcsPopulator
 		static void Main(string[] args)
 		{
 			var clients = CsvCollector.Parse<AddClientRequest>(@"D:\test.csv");
-			var contacts = CsvCollector.Parse<AddContactRequest>(@"\contacts.csv"); // TODO Create csv with contacts and resolve file path
+			var contacts = CsvCollector.Parse<AddContactRequest>(@"\contacts.csv") as List<AddContactRequest>; // TODO Create csv with contacts and resolve file path
 		    var controller = new ApiController();
 
 			foreach (var client in clients)
@@ -21,7 +22,7 @@ namespace WhmcsPopulator
                 // steps to be implemented are below
 
 				// foreach parser.getcontacts || for random number of contacts (between 1 and 3/5)
-				var contact = contacts.FirstOrDefault();
+				var contact = new AddContactRequest(); // TODO Get first and remove it from collection.
 				if (!controller.InsertContact(contact, clientId)) continue;
 				// foreach parser.getorders
 				// insert order

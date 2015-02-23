@@ -25,10 +25,11 @@ namespace WhmcsPopulator.Api
         [ApiParamName("sendemail")] // true/false - sets if welcome emails for products and registration confirmation emails for domains should be sent
         public string SendEmail;
 
-        public AcceptOrderRequest()
+        public AcceptOrderRequest(string orderId)
             : base()
         {
             ApiAction = WhmcsApi.AcceptOrder;
+			OrderId = orderId;
         }
     }
 }
