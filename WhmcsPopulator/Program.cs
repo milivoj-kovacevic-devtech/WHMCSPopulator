@@ -22,7 +22,9 @@ namespace WhmcsPopulator
                 // steps to be implemented are below
 
 				// foreach parser.getcontacts || for random number of contacts (between 1 and 3/5)
-				var contact = new AddContactRequest(); // TODO Get first and remove it from collection.
+				if (contacts.Count == 0) continue; // if there are no more contacts in list
+				var contact = contacts[0]; // TODO Get first and remove it from collection.
+				contacts.RemoveAt(0);
 				if (!controller.InsertContact(contact, clientId)) continue;
 				// foreach parser.getorders
 				// insert order

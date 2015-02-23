@@ -85,6 +85,7 @@ namespace WhmcsPopulator.Shared
 			return success;
 		}
 
+		// maybe to call it inside insertorder()?
 		public bool AcceptOrder(string orderId)
 		{
 			var order = new AcceptOrderRequest(orderId);

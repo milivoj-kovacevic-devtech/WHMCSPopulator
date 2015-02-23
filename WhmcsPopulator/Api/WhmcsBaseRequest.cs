@@ -50,6 +50,7 @@ namespace WhmcsPopulator
             public const string GetProducts = "getproducts";
             public const string GetOrderStatuses = "getorderstatuses";
             public const string AcceptOrder = "acceptorder";
+			public const string ModuleCreate = "modulecreate";
         }
     }
 }
