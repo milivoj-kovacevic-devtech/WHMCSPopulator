@@ -37,12 +37,13 @@ namespace WhmcsPopulator.Api
         [ApiParamName("phonenumber")]
         public string PhoneNumber;
         [MandatoryParameter]
+		[FieldIgnored]
         [ApiParamName("password2")]
-        public string Password2;
+        public string Password2 = "test123";
         
         // Optional parameters
-		//[ApiParamName("companyname")]
-		//public string CompanyName;
+		[ApiParamName("companyname")]
+		public string CompanyName;
 		//[ApiParamName("address2")]
 		//public string Address2;
 		//[ApiParamName("currency")]

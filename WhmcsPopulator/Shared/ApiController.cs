@@ -43,14 +43,49 @@ namespace WhmcsPopulator.Shared
 			return success;
 		}
 
-		public void InsertContact(string clientId)
+		public bool InsertContact(AddContactRequest contact, string clientId)
 		{
-			// inserting one contact
+			var success = true;
+			contact.ClientId = clientId;
+
+			try
+			{
+				var request = ResolveRequest(contact);
+				var response = _restClient.Execute(request) as RestResponse;
+
+				dynamic processedResponse = ProcessResponse(response);
+
+				if (!IsSuccess(processedResponse)) throw new Exception("API returns error.");
+			}
+			catch (Exception ex)
+			{
+				Log.Error("Contact not added due to error: " + ex.Message);
+				success = false;
+			}
+			return success;
 		}
 
-		public void InsertOrder(string clientId)
+		public bool InsertOrder(AddOrderRequest order, string clientId)
 		{
-			// inserting one order
+			var success = true;
+			order.ClientId = clientId;
+
+			try
+			{
+				var request = ResolveRequest(order);
+				var response = _restClient.Execute(request) as RestResponse;
+
+				dynamic processedResponse = ProcessResponse(response);
+
+				if (!IsSuccess(processedResponse)) throw new Exception("API returns error.");
+			}
+			catch (Exception ex)
+			{
+				Log.Error("Order not added due to error: " + ex.Message);
+				success = false;
+			}
+
+			return success;
 		}
 
 		public void AcceptOrder(string orderId)

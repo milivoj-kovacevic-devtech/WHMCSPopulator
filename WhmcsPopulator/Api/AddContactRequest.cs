@@ -1,11 +1,13 @@
-﻿using WhmcsPopulator.Shared;
+﻿using FileHelpers;
+using WhmcsPopulator.Shared;
 
 namespace WhmcsPopulator.Api
 {
     class AddContactRequest : WhmcsBaseRequest
     {
         // Required parameters
-        [MandatoryParameter]
+        [FieldIgnored]
+		[MandatoryParameter]
         [ApiParamName("clientid")]
         public string ClientId;
 
