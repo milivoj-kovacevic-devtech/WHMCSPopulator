@@ -78,6 +78,7 @@
     <Compile Include="Api\GetClientsProductsRequest.cs" />
     <Compile Include="Api\GetOrdersRequest.cs" />
     <Compile Include="Api\GetProductsRequest.cs" />
+    <Compile Include="Api\ModuleCreateRequest.cs" />
     <Compile Include="Api\RegisterDomainRequest.cs" />
     <Compile Include="Api\WhmcsBaseRequest.cs" />
     <Compile Include="Shared\ApiController.cs" />
