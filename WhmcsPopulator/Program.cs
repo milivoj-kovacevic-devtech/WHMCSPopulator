@@ -39,6 +39,7 @@ namespace WhmcsPopulator
 				// adding orders
 				var order = new AddOrderRequest(); // TODO Create csv for orders and get orders from file
 				if (!ApiController.InsertOrder(order, clientId)) continue;
+				if (!ApiController.ActivateSubscriptions(clientId)) continue;
 			}
 		}
 	}

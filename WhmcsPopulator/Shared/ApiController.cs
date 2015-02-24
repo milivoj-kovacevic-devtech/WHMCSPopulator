@@ -11,8 +11,7 @@ namespace WhmcsPopulator.Shared
 {
 	public class ApiController
 	{
-        private static readonly ILog Log = LogManager.GetLogger(typeof(ApiController));
-
+		private static readonly ILog _log = LogManager.GetLogger(typeof(ApiController));
 		private RestClient _restClient;
 
 		public ApiController()
@@ -28,16 +27,15 @@ namespace WhmcsPopulator.Shared
 			{
 				var request = ResolveRequest(client);
 				var response = _restClient.Execute(request) as RestResponse;
-
-			    dynamic processedResponse = ProcessResponse(response);
+				dynamic processedResponse = ProcessResponse(response);
 
 				if (!IsSuccess(processedResponse)) throw new Exception("API returns error.");
-			    clientId = processedResponse.clientid;
-                    Console.WriteLine("Client with ID " + clientId + " added to WHMCS.");
+				clientId = processedResponse.clientid;
+				Console.WriteLine("Client with ID " + clientId + " added to WHMCS.");
 			}
 			catch (Exception ex)
 			{
-			    Log.Error("Client not added due to error: " + ex.Message);
+				_log.Error("Client not added due to error: " + ex.Message);
 				success = false;
 			}
 			return success;
@@ -51,14 +49,13 @@ namespace WhmcsPopulator.Shared
 			{
 				var request = ResolveRequest(contact);
 				var response = _restClient.Execute(request) as RestResponse;
-
 				dynamic processedResponse = ProcessResponse(response);
 
 				if (!IsSuccess(processedResponse)) throw new Exception("API returns error.");
 			}
 			catch (Exception ex)
 			{
-				Log.Error("Contact not added due to error: " + ex.Message);
+				_log.Error("Contact not added due to error: " + ex.Message);
 				success = false;
 			}
 			return success;
@@ -72,7 +69,6 @@ namespace WhmcsPopulator.Shared
 			{
 				var request = ResolveRequest(order);
 				var response = _restClient.Execute(request) as RestResponse;
-
 				dynamic processedResponse = ProcessResponse(response);
 
 				if (!IsSuccess(processedResponse)) throw new Exception("API returns error.");
@@ -80,13 +76,12 @@ namespace WhmcsPopulator.Shared
 			}
 			catch (Exception ex)
 			{
-				Log.Error("Order not added due to error: " + ex.Message);
+				_log.Error("Order not added due to error: " + ex.Message);
 				success = false;
 			}
 			return success;
 		}
 
-		// maybe to call it inside insertorder()?
 		private bool AcceptOrder(string orderId)
 		{
 			var order = new AcceptOrderRequest(orderId);
@@ -95,23 +90,73 @@ namespace WhmcsPopulator.Shared
 			{
 				var request = ResolveRequest(order);
 				var response = _restClient.Execute(request) as RestResponse;
-
 				dynamic processedResponse = ProcessResponse(response);
 
 				if (!IsSuccess(processedResponse)) throw new Exception("API returns error.");
 			}
 			catch (Exception ex)
 			{
-				Log.Error("Order not accepted due to error: " + ex.Message);
+				_log.Error("Order not accepted due to error: " + ex.Message);
 				success = false;
 			}
 			return success;
 		}
 
+		public bool ActivateSubscriptions(string clientId) // calls modulecreate API method
+		{
+			var success = true;
+			List<string> subscriptionIds;
+			try
+			{
+				if (!GetSubsriptions(clientId, out subscriptionIds)) throw new Exception("Error getting subscriptions.");
+				foreach (var subscriptionId in subscriptionIds)
+				{
+					var moduleCreate = new ModuleCreateRequest(subscriptionId);
+					var request = ResolveRequest(moduleCreate);
+					var response = _restClient.Execute(request) as RestResponse;
+					dynamic processedResponse = ProcessResponse(response);
+
+					if (!IsSuccess(processedResponse)) throw new Exception("API returns error");
+				}
+			}
+			catch (Exception ex)
+			{
+				_log.Error("Module not activated: " + ex.Message);
+				success = false;
+			}
+			return success;
+		}
+
+		private bool GetSubsriptions(string clientId, out List<string> subscriptionIds)
+		{
+			var success = true;
+			subscriptionIds = new List<string>();
+			var clientsProducts = new GetClientsProductsRequest(clientId);
+			try
+			{
+				var request = ResolveRequest(clientsProducts);
+				var response = _restClient.Execute(request) as RestResponse;
+				dynamic processedResponse = ProcessResponse(response);
+
+				if (!IsSuccess(processedResponse)) throw new Exception("API returns error.");
+				foreach (var prod in processedResponse.products.product)
+				{
+					subscriptionIds.Add(prod.id as string);
+				}
+			}
+			catch (Exception ex)
+			{
+				_log.Error("Error getting products for client " + clientId + ": " + ex.Message);
+				success = false;
+			}
+
+			return success;
+		}
+
 		private RestRequest ResolveRequest(object data)
 		{
-            var request = new RestRequest(Method.POST);
-            request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
+			var request = new RestRequest(Method.POST);
+			request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
 
 			foreach (var field in data.GetType().GetFields())
 			{
@@ -122,24 +167,24 @@ namespace WhmcsPopulator.Shared
 				var mandatory = field.GetCustomAttributes(typeof(MandatoryParameterAttribute), true).FirstOrDefault() != null;
 				var value = field.GetValue(data);
 				if (mandatory && value == null) throw new Exception("Mandatory field cannot be null.");
-				
+
 				request.AddParameter(key, value);
 			}
 			return request;
 		}
 
-	    private JToken ProcessResponse(RestResponse response)
-	    {
-	        var content = response.Content;
-	        var responseJson = JValue.Parse(content);
+		private JToken ProcessResponse(RestResponse response)
+		{
+			var content = response.Content;
+			var responseJson = JValue.Parse(content);
 
-	        return responseJson;
-	    }
+			return responseJson;
+		}
 
-	    private bool IsSuccess(dynamic responseJson)
-        {
-            return responseJson.result == "success";
-        }
+		private bool IsSuccess(dynamic responseJson)
+		{
+			return responseJson.result == "success";
+		}
 
 	}
 }
