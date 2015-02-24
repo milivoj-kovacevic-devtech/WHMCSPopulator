@@ -141,7 +141,8 @@ namespace WhmcsPopulator.Shared
 				if (!IsSuccess(processedResponse)) throw new Exception("API returns error.");
 				foreach (var prod in processedResponse.products.product)
 				{
-					subscriptionIds.Add(prod.id as string);
+					subscriptionIds.Add(prod.id.ToString());
+					Console.WriteLine(prod.id);
 				}
 			}
 			catch (Exception ex)
