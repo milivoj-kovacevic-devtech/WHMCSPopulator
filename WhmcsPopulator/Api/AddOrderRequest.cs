@@ -1,7 +1,9 @@
-﻿using WhmcsPopulator.Shared;
+﻿using FileHelpers;
+using WhmcsPopulator.Shared;
 
 namespace WhmcsPopulator.Api
 {
+	[DelimitedRecord(",")]
     public class AddOrderRequest : WhmcsBaseRequest
     {
         // Required parameters
@@ -34,6 +36,12 @@ namespace WhmcsPopulator.Api
         public string PaymentMethod;
 
         // Optional parameters
+		[FieldIgnored]
+		[ApiParamName("noinvoiceemail")]
+		public string NoInvoiceEmail;
+		[FieldIgnored]
+		[ApiParamName("noemail")]
+		public string NoEmail;
         // for domain reg only
         [ApiParamName("contactid")]
         public string ContactId;

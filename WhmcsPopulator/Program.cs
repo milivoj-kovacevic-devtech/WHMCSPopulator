@@ -13,18 +13,18 @@ namespace WhmcsPopulator
 		{
 			var clients = CsvCollector.Parse<AddClientRequest>(@"D:\clients.csv");
 			var contacts = new List<AddContactRequest>(CsvCollector.Parse<AddContactRequest>(@"D:\contacts.csv"));
-		    var controller = new ApiController();
 			var rnd = new Random();
 
 			foreach (var client in clients)
 			{
 				string clientId;
-				if (!controller.InsertClient(client, out clientId)) continue;
+				if (!ApiController.InsertClient(client, out clientId)) continue;
+				// adding contacts
 				var numOfContacts = rnd.Next(4);
 				if (numOfContacts == 0)
 				{
 					var contactWithNoData = new AddContactRequest();
-					if (!controller.InsertContact(contactWithNoData, clientId)) continue;
+					if (!ApiController.InsertContact(contactWithNoData, clientId)) continue;
 				}
 				else
 				{
@@ -33,13 +33,12 @@ namespace WhmcsPopulator
 						if (contacts.Count == 0) continue; // if there are no more contacts in list
 						var contact = contacts[0]; // TODO Get first and remove it from collection.
 						contacts.RemoveAt(0);
-						if (!controller.InsertContact(contact, clientId)) continue;
+						if (!ApiController.InsertContact(contact, clientId)) continue;
 					}
 				}
-				// foreach parser.getcontacts || for random number of contacts (between 1 and 3/5)
-				// foreach parser.getorders
-				// insert order
-				// accept order
+				// adding orders
+				var order = new AddOrderRequest();
+				if (!ApiController.InsertOrder(order, clientId)) continue;
 			}
 		}
 	}

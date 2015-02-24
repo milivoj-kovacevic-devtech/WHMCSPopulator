@@ -76,6 +76,7 @@ namespace WhmcsPopulator.Shared
 				dynamic processedResponse = ProcessResponse(response);
 
 				if (!IsSuccess(processedResponse)) throw new Exception("API returns error.");
+				if (AcceptOrder(processedResponse.orderid)) throw new Exception("Unable to accept order.");
 			}
 			catch (Exception ex)
 			{
@@ -86,7 +87,7 @@ namespace WhmcsPopulator.Shared
 		}
 
 		// maybe to call it inside insertorder()?
-		public bool AcceptOrder(string orderId)
+		private bool AcceptOrder(string orderId)
 		{
 			var order = new AcceptOrderRequest(orderId);
 			var success = true;
