@@ -31,13 +31,13 @@ namespace WhmcsPopulator
 					for (var i = 0; i <= numOfContacts; i++)
 					{
 						if (contacts.Count == 0) continue; // if there are no more contacts in list
-						var contact = contacts[0]; // TODO Get first and remove it from collection.
+						var contact = contacts[0];
 						contacts.RemoveAt(0);
 						if (!ApiController.InsertContact(contact, clientId)) continue;
 					}
 				}
 				// adding orders
-				var order = new AddOrderRequest();
+				var order = new AddOrderRequest(); // TODO Create csv for orders and get orders from file
 				if (!ApiController.InsertOrder(order, clientId)) continue;
 			}
 		}
