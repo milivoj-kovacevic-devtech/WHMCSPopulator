@@ -14,7 +14,6 @@ namespace WhmcsPopulator.Api
         public string DomainName { get; set; }
 
         public RegisterDomainRequest()
-            : base()
         {
             ApiAction = WhmcsApi.RegisterDomain;
         }

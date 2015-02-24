@@ -26,7 +26,6 @@ namespace WhmcsPopulator.Api
 		//public string SendEmail;
 
         public AcceptOrderRequest(string orderId)
-            : base()
         {
             ApiAction = WhmcsApi.AcceptOrder;
 			OrderId = orderId;

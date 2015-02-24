@@ -78,7 +78,6 @@ namespace WhmcsPopulator.Api
 		//public string SkipValidation; // Set true to not validate or check required fields
 
         public AddClientRequest()
-            : base()
         {
             ApiAction = WhmcsApi.AddClient;
         }

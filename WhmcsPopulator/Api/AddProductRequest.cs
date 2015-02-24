@@ -48,7 +48,6 @@ namespace WhmcsPopulator.Api
         public List<string> Pricing;
 
         public AddProductRequest()
-            : base()
         {
             ApiAction = WhmcsApi.AddProduct;
         }

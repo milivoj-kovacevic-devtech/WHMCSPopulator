@@ -9,7 +9,6 @@ namespace WhmcsPopulator.Api
         public string ClientId;
 
         public GetClientsDomainsRequest()
-            : base()
         {
             ApiAction = WhmcsApi.GetClientsDomains;
         }

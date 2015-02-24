@@ -1,9 +1,8 @@
-﻿using RestSharp;
-using System;
-using FileHelpers;
+﻿using FileHelpers;
+using RestSharp;
 using WhmcsPopulator.Shared;
 
-namespace WhmcsPopulator
+namespace WhmcsPopulator.Api
 {
     public class WhmcsBaseRequest
     {

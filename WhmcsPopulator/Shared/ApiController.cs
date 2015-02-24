@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using log4net;
 using Newtonsoft.Json.Linq;
@@ -11,7 +10,7 @@ namespace WhmcsPopulator.Shared
 {
 	public class ApiController
 	{
-		private static readonly ILog _log = LogManager.GetLogger(typeof(ApiController));
+		private static readonly ILog Log = LogManager.GetLogger(typeof(ApiController));
 		private RestClient _restClient;
 
 		public ApiController()
@@ -35,7 +34,7 @@ namespace WhmcsPopulator.Shared
 			}
 			catch (Exception ex)
 			{
-				_log.Error("Client not added due to error: " + ex.Message);
+				Log.Error("Client not added due to error: " + ex.Message);
 				success = false;
 			}
 			return success;
@@ -55,7 +54,7 @@ namespace WhmcsPopulator.Shared
 			}
 			catch (Exception ex)
 			{
-				_log.Error("Contact not added due to error: " + ex.Message);
+				Log.Error("Contact not added due to error: " + ex.Message);
 				success = false;
 			}
 			return success;
@@ -76,7 +75,7 @@ namespace WhmcsPopulator.Shared
 			}
 			catch (Exception ex)
 			{
-				_log.Error("Order not added due to error: " + ex.Message);
+				Log.Error("Order not added due to error: " + ex.Message);
 				success = false;
 			}
 			return success;
@@ -96,7 +95,7 @@ namespace WhmcsPopulator.Shared
 			}
 			catch (Exception ex)
 			{
-				_log.Error("Order not accepted due to error: " + ex.Message);
+				Log.Error("Order not accepted due to error: " + ex.Message);
 				success = false;
 			}
 			return success;
@@ -105,23 +104,18 @@ namespace WhmcsPopulator.Shared
 		public bool ActivateSubscriptions(string clientId) // calls modulecreate API method
 		{
 			var success = true;
-			List<string> subscriptionIds;
-			try
+		    try
 			{
-				if (!GetSubsriptions(clientId, out subscriptionIds)) throw new Exception("Error getting subscriptions.");
-				foreach (var subscriptionId in subscriptionIds)
-				{
-					var moduleCreate = new ModuleCreateRequest(subscriptionId);
-					var request = ResolveRequest(moduleCreate);
-					var response = _restClient.Execute(request) as RestResponse;
-					dynamic processedResponse = ProcessResponse(response);
-
-					if (!IsSuccess(processedResponse)) throw new Exception("API returns error");
-				}
+			    List<string> subscriptionIds;
+			    if (!GetSubsriptions(clientId, out subscriptionIds)) throw new Exception("Error getting subscriptions.");
+			    if ((from subscriptionId in subscriptionIds select new ModuleCreateRequest(subscriptionId) into moduleCreate select ResolveRequest(moduleCreate) into request select _restClient.Execute(request) as RestResponse into response select ProcessResponse(response)).Any(processedResponse => !IsSuccess((dynamic) processedResponse)))
+			    {
+			        throw new Exception("API returns error");
+			    }
 			}
 			catch (Exception ex)
 			{
-				_log.Error("Module not activated: " + ex.Message);
+				Log.Error("Module not activated: " + ex.Message);
 				success = false;
 			}
 			return success;
@@ -147,7 +141,7 @@ namespace WhmcsPopulator.Shared
 			}
 			catch (Exception ex)
 			{
-				_log.Error("Error getting products for client " + clientId + ": " + ex.Message);
+				Log.Error("Error getting products for client " + clientId + ": " + ex.Message);
 				success = false;
 			}
 

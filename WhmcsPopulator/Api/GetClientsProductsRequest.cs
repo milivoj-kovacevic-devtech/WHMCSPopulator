@@ -9,7 +9,6 @@ namespace WhmcsPopulator.Api
         public string ClientId;
 
         public GetClientsProductsRequest(string clientId)
-            : base()
         {
 			ClientId = clientId;
             ApiAction = WhmcsApi.GetClientsProducts;

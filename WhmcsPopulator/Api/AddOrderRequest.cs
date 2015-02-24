@@ -61,7 +61,6 @@ namespace WhmcsPopulator.Api
         public string Nameserver4;
 
         public AddOrderRequest()
-            : base()
         {
             ApiAction = WhmcsApi.AddOrder;
         }

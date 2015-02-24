@@ -13,7 +13,6 @@ namespace WhmcsPopulator.Api
         public string Status;
 
         public GetOrdersRequest()
-            : base()
         {
             ApiAction = WhmcsApi.GetOrders;
         }

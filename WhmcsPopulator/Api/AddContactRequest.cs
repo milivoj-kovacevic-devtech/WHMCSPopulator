@@ -33,7 +33,7 @@ namespace WhmcsPopulator.Api
 		public string PhoneNumber;
 		[FieldIgnored]
 		[ApiParamName("password2")]
-		public string Password = "test123"; // If creating sub-account
+		public string Password2 = "test123"; // If creating sub-account
 		[ApiParamName("companyname")]
 		public string CompanyName;
 		//[ApiParamName("address2")]
@@ -52,7 +52,6 @@ namespace WhmcsPopulator.Api
 		//public string SupportEmails; // Set true to receive support ticket related emails
 
 		public AddContactRequest()
-			: base()
 		{
 			ApiAction = WhmcsApi.AddContact;
 		}

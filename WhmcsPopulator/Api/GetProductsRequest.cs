@@ -14,7 +14,6 @@ namespace WhmcsPopulator.Api
         public string Module;       // could be usefull since only cPanel product will be used
 
         public GetProductsRequest()
-            : base()
         {
             ApiAction = WhmcsApi.GetProducts;
         }

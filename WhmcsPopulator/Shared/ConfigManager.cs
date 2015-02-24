@@ -6,6 +6,6 @@ namespace WhmcsPopulator.Shared
     {
         public static string ApiUrl = ConfigurationManager.AppSettings["ApiUrl"];
         public static string AdminUsername = ConfigurationManager.AppSettings["WhmcsAdmin"];
-        public static string AdminPassword = Md5Hasher.CreateMD5Hash(ConfigurationManager.AppSettings["WhmcsAdminPassword"]);
+        public static string AdminPassword = Md5Hasher.CreateMd5Hash(ConfigurationManager.AppSettings["WhmcsAdminPassword"]);
     }
 }
