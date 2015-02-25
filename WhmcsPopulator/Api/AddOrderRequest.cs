@@ -8,6 +8,7 @@ namespace WhmcsPopulator.Api
     {
         // Required parameters
         [MandatoryParameter]
+		[FieldIgnored]
         [ApiParamName("clientid")]
         public string ClientId;
         [MandatoryParameter]
@@ -26,8 +27,9 @@ namespace WhmcsPopulator.Api
         [ApiParamName("regperiod")] // 1,2,3,etc...
         public string RegPeriod;
         [MandatoryParameter]
+		[FieldIgnored]
         [ApiParamName("eppcode")] // if domain transfer
-        public string EppCode;
+        public string EppCode = string.Empty;
         [MandatoryParameter]
         [ApiParamName("nameserver1")] // first nameserver (req for domain reg only)
         public string Nameserver1;
@@ -38,27 +40,27 @@ namespace WhmcsPopulator.Api
         // Optional parameters
 		[FieldIgnored]
 		[ApiParamName("noinvoiceemail")]
-		public string NoInvoiceEmail;
+		public string NoInvoiceEmail = "true";
 		[FieldIgnored]
 		[ApiParamName("noemail")]
-		public string NoEmail;
+		public string NoEmail = "true";
         // for domain reg only
-        [ApiParamName("contactid")]
-        public string ContactId;
+		//[ApiParamName("contactid")]
+		//public string ContactId;
         [ApiParamName("dnsmanagement")] // true to enable
         public string DnsManagement;
-        [ApiParamName("domainfields")] // a base64 encoded serialized array of the TLD specific field values
-        public string DomainFields;
+		//[ApiParamName("domainfields")] // a base64 encoded serialized array of the TLD specific field values
+		//public string DomainFields;
         [ApiParamName("emailforwarding")] // true to enable
         public string EmailForwarding;
-        [ApiParamName("idprotection")] // true to enable
-        public string IdProtection;
-        [ApiParamName("nameserver2")] // second nameserver
-        public string Nameserver2;
-        [ApiParamName("nameserver3")] // third nameserver
-        public string Nameserver3;
-        [ApiParamName("nameserver4")] // fourth nameserver
-        public string Nameserver4;
+		//[ApiParamName("idprotection")] // true to enable
+		//public string IdProtection;
+		//[ApiParamName("nameserver2")] // second nameserver
+		//public string Nameserver2;
+		//[ApiParamName("nameserver3")] // third nameserver
+		//public string Nameserver3;
+		//[ApiParamName("nameserver4")] // fourth nameserver
+		//public string Nameserver4;
 
         public AddOrderRequest()
         {
