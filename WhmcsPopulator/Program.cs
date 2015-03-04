@@ -17,13 +17,18 @@ namespace WhmcsPopulator
 			XmlConfigurator.Configure();
 			Log.Info("Main program init...");
 
+			Log.Debug("Parsing clients csv file...");
 			var clients = CsvCollector.Parse<AddClientRequest>(@"D:\clients.csv");
+			Log.Debug("Parsing contacts csv file...");
 			var contacts = new List<AddContactRequest>(CsvCollector.Parse<AddContactRequest>(@"D:\contacts.csv"));
+			Log.Debug("Parsing orders csv file...");
 			var orders = new List<AddOrderRequest>(CsvCollector.Parse<AddOrderRequest>(@"D:\orders.csv"));
 			var rnd = new Random();
+			Log.Debug("Parsing done.");
 
 			foreach (var client in clients)
 			{
+				Log.Info("Adding clients, contacts and orders loop start.");
 				string clientId;
 				if (!ApiController.InsertClient(client, out clientId)) continue;
 				// adding contacts
@@ -48,6 +53,7 @@ namespace WhmcsPopulator
 				orders.RemoveAt(0);
 				if (!ApiController.InsertOrder(order, clientId)) continue;
 				if (!ApiController.ActivateSubscriptions(clientId)) continue;
+				Log.Info("Adding clients, contacts and orders loop end.");
 			}
 
 			//ApiController.ActivateSubscriptions("80");

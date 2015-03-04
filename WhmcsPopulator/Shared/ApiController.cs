@@ -33,6 +33,7 @@ namespace WhmcsPopulator.Shared
 				if (!IsSuccess(processedResponse)) throw new Exception("API returns error.");
 				clientId = processedResponse.clientid;
 				Console.WriteLine("Client with ID " + clientId + " added to WHMCS.");
+				Log.Debug("Client with ID " + clientId + " added to WHMCS.");
 			}
 			catch (Exception ex)
 			{
@@ -46,7 +47,7 @@ namespace WhmcsPopulator.Shared
 		public bool InsertContact(AddContactRequest contact, string clientId)
 		{
 			Log.Info("InsertContact init...");
-
+			Log.Debug("Adding contact for client id " + clientId);
 			var success = true;
 			contact.ClientId = clientId;
 			try
@@ -69,7 +70,7 @@ namespace WhmcsPopulator.Shared
 		public bool InsertOrder(AddOrderRequest order, string clientId)
 		{
 			Log.Info("InsertOrder init...");
-
+			Log.Debug("Adding order for client id " + clientId);
 			var success = true;
 			order.ClientId = clientId;
 			try
@@ -93,7 +94,7 @@ namespace WhmcsPopulator.Shared
 		private bool AcceptOrder(string orderId)
 		{
 			Log.Info("AcceptOrder init...");
-
+			Log.Debug("Accepting order with id " + orderId);
 			var order = new AcceptOrderRequest(orderId);
 			var success = true;
 			try
@@ -116,7 +117,7 @@ namespace WhmcsPopulator.Shared
 		public bool ActivateSubscriptions(string clientId) // calls modulecreate API method
 		{
 			Log.Info("ActivateSubscription init...");
-
+			Log.Debug("Activating subscriptions for client id " + clientId);
 			var success = true;
 		    try
 			{
@@ -138,6 +139,8 @@ namespace WhmcsPopulator.Shared
 
 		private bool GetSubsriptions(string clientId, out List<string> subscriptionIds)
 		{
+			Log.Info("GetSubscriptions init...");
+			Log.Debug("Getting subscriptions for client id " + clientId);
 			var success = true;
 			subscriptionIds = new List<string>();
 			var clientsProducts = new GetClientsProductsRequest(clientId);
@@ -151,7 +154,7 @@ namespace WhmcsPopulator.Shared
 				foreach (var prod in processedResponse.products.product)
 				{
 					subscriptionIds.Add(prod.id.ToString());
-					Console.WriteLine(prod.id);
+					Log.Debug("Product with id " + prod.id + "found.");
 				}
 			}
 			catch (Exception ex)
@@ -160,11 +163,13 @@ namespace WhmcsPopulator.Shared
 				success = false;
 			}
 
+			Log.Info("GetSubscriptions end.");
 			return success;
 		}
 
 		private RestRequest ResolveRequest(object data)
 		{
+			Log.Info("ResolveRequest init...");
 			var request = new RestRequest(Method.POST);
 			request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
 
@@ -180,14 +185,18 @@ namespace WhmcsPopulator.Shared
 
 				request.AddParameter(key, value);
 			}
+			Log.Info("ResolveRequest end.");
 			return request;
 		}
 
 		private JToken ProcessResponse(RestResponse response)
 		{
+			Log.Info("ProcessResponse init...");
 			var content = response.Content;
+			Log.Debug("Full API response: " + content);
 			var responseJson = JValue.Parse(content);
 
+			Log.Info("ProcessResponse end.");
 			return responseJson;
 		}
 
