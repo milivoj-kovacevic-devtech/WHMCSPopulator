@@ -20,6 +20,8 @@ namespace WhmcsPopulator.Shared
 
 		public bool InsertClient(AddClientRequest client, out string clientId)
 		{
+			Log.Info("InsertClient init...");
+
 			var success = true;
 			clientId = string.Empty;
 			try
@@ -37,11 +39,14 @@ namespace WhmcsPopulator.Shared
 				Log.Error("Client not added due to error: " + ex.Message);
 				success = false;
 			}
+			Log.Info("InsertClient end.");
 			return success;
 		}
 
 		public bool InsertContact(AddContactRequest contact, string clientId)
 		{
+			Log.Info("InsertContact init...");
+
 			var success = true;
 			contact.ClientId = clientId;
 			try
@@ -57,11 +62,14 @@ namespace WhmcsPopulator.Shared
 				Log.Error("Contact not added due to error: " + ex.Message);
 				success = false;
 			}
+			Log.Info("InsertContact end.");
 			return success;
 		}
 
 		public bool InsertOrder(AddOrderRequest order, string clientId)
 		{
+			Log.Info("InsertOrder init...");
+
 			var success = true;
 			order.ClientId = clientId;
 			try
@@ -71,18 +79,21 @@ namespace WhmcsPopulator.Shared
 				dynamic processedResponse = ProcessResponse(response);
 
 				if (!IsSuccess(processedResponse)) throw new Exception("API returns error.");
-				if (AcceptOrder(processedResponse.orderid)) throw new Exception("Unable to accept order.");
+				if (!AcceptOrder(processedResponse.orderid.ToString())) throw new Exception("Unable to accept order.");
 			}
 			catch (Exception ex)
 			{
 				Log.Error("Order not added due to error: " + ex.Message);
 				success = false;
 			}
+			Log.Info("InsertOrder end.");
 			return success;
 		}
 
 		private bool AcceptOrder(string orderId)
 		{
+			Log.Info("AcceptOrder init...");
+
 			var order = new AcceptOrderRequest(orderId);
 			var success = true;
 			try
@@ -98,11 +109,14 @@ namespace WhmcsPopulator.Shared
 				Log.Error("Order not accepted due to error: " + ex.Message);
 				success = false;
 			}
+			Log.Info("AcceptOrder end.");
 			return success;
 		}
 
 		public bool ActivateSubscriptions(string clientId) // calls modulecreate API method
 		{
+			Log.Info("ActivateSubscription init...");
+
 			var success = true;
 		    try
 			{
@@ -118,6 +132,7 @@ namespace WhmcsPopulator.Shared
 				Log.Error("Module not activated: " + ex.Message);
 				success = false;
 			}
+			Log.Info("ActivateSubscription end.");
 			return success;
 		}
 

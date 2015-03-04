@@ -21,18 +21,21 @@ namespace WhmcsPopulator.Api
         [ApiParamName("billingcycle")] // onetime, monthly, quarterly, semiannually, etc...
         public string BillingCycle;
         [MandatoryParameter]
+		[FieldIgnored]
         [ApiParamName("domaintype")] // set for domain registration - register or transfer
-        public string DomainType;
+        public string DomainType = string.Empty;
         [MandatoryParameter]
+		[FieldIgnored]
         [ApiParamName("regperiod")] // 1,2,3,etc...
-        public string RegPeriod;
+        public string RegPeriod = string.Empty;
         [MandatoryParameter]
 		[FieldIgnored]
         [ApiParamName("eppcode")] // if domain transfer
         public string EppCode = string.Empty;
         [MandatoryParameter]
+		[FieldIgnored]
         [ApiParamName("nameserver1")] // first nameserver (req for domain reg only)
-        public string Nameserver1;
+        public string Nameserver1 = string.Empty;
         [MandatoryParameter]
         [ApiParamName("paymentmethod")] // paypal, authorize, etc...
         public string PaymentMethod;
@@ -47,12 +50,14 @@ namespace WhmcsPopulator.Api
         // for domain reg only
 		//[ApiParamName("contactid")]
 		//public string ContactId;
+		[FieldIgnored]
         [ApiParamName("dnsmanagement")] // true to enable
-        public string DnsManagement;
+        public string DnsManagement = string.Empty;
 		//[ApiParamName("domainfields")] // a base64 encoded serialized array of the TLD specific field values
 		//public string DomainFields;
+		[FieldIgnored]
         [ApiParamName("emailforwarding")] // true to enable
-        public string EmailForwarding;
+        public string EmailForwarding = "true";
 		//[ApiParamName("idprotection")] // true to enable
 		//public string IdProtection;
 		//[ApiParamName("nameserver2")] // second nameserver
