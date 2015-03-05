@@ -67,12 +67,12 @@ namespace WhmcsPopulator.Shared
 			return success;
 		}
 
-		public bool InsertOrder(AddOrderRequest order, string clientId)
+		public bool InsertOrder(string clientId)
 		{
 			Log.Info("InsertOrder init...");
 			Log.Debug("Adding order for client id " + clientId);
 			var success = true;
-			order.ClientId = clientId;
+			var order = new AddOrderRequest(clientId);
 			//order.DomainName = SomeFunctionWhichWillGiveMeDomain(clientId); // TODO Implement this :)
 			try
 			{

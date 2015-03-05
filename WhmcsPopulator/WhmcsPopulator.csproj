@@ -79,8 +79,6 @@
     <Compile Include="Shared\ConfigManager.cs" />
     <Compile Include="Shared\CsvCollector.cs" />
     <Compile Include="Shared\ApiParamNameAttribute.cs" />
-    <Compile Include="Shared\DomainsEnum.cs" />
-    <Compile Include="Shared\FullDomainAttribute.cs" />
     <Compile Include="Shared\MandatoryParameterAttribute.cs" />
     <Compile Include="Shared\Md5Hasher.cs" />
     <Compile Include="Program.cs" />
