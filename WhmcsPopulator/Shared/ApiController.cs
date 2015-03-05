@@ -73,6 +73,7 @@ namespace WhmcsPopulator.Shared
 			Log.Debug("Adding order for client id " + clientId);
 			var success = true;
 			order.ClientId = clientId;
+			order.DomainName = SomeFunctionWhichWillGiveMeDomain(clientId); // TODO Implement this :)
 			try
 			{
 				var request = ResolveRequest(order);
@@ -193,15 +194,23 @@ namespace WhmcsPopulator.Shared
 		{
 			Log.Info("ProcessResponse init...");
 			var content = response.Content;
+			JToken responseJson = null;
 			Log.Debug("Full API response: " + content);
-			var responseJson = JValue.Parse(content);
-
+			try
+			{
+				responseJson = JValue.Parse(content);
+			}
+			catch (Exception ex)
+			{
+				Log.Error("Error processing response: " + ex.Message);
+			}
 			Log.Info("ProcessResponse end.");
 			return responseJson;
 		}
 
 		private bool IsSuccess(dynamic responseJson)
 		{
+			if (responseJson == null) return false;
 			return responseJson.result == "success";
 		}
 

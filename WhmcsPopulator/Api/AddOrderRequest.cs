@@ -16,7 +16,7 @@ namespace WhmcsPopulator.Api
         public string ProductId;
         [MandatoryParameter]
         [ApiParamName("domain")]
-        public string DomainName;
+        public string DomainName; // TODO Ignore this field, assing value randomized
         [MandatoryParameter]
         [ApiParamName("billingcycle")] // onetime, monthly, quarterly, semiannually, etc...
         public string BillingCycle;
