@@ -72,11 +72,7 @@
     <Compile Include="Api\AddClientRequest.cs" />
     <Compile Include="Api\AddContactRequest.cs" />
     <Compile Include="Api\AddOrderRequest.cs" />
-    <Compile Include="Api\GetClients.cs" />
-    <Compile Include="Api\GetClientsDomainsRequest.cs" />
     <Compile Include="Api\GetClientsProductsRequest.cs" />
-    <Compile Include="Api\GetOrdersRequest.cs" />
-    <Compile Include="Api\GetProductsRequest.cs" />
     <Compile Include="Api\ModuleCreateRequest.cs" />
     <Compile Include="Api\WhmcsBaseRequest.cs" />
     <Compile Include="Shared\ApiController.cs" />

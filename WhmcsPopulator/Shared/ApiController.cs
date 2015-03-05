@@ -73,7 +73,7 @@ namespace WhmcsPopulator.Shared
 			Log.Debug("Adding order for client id " + clientId);
 			var success = true;
 			order.ClientId = clientId;
-			order.DomainName = SomeFunctionWhichWillGiveMeDomain(clientId); // TODO Implement this :)
+			//order.DomainName = SomeFunctionWhichWillGiveMeDomain(clientId); // TODO Implement this :)
 			try
 			{
 				var request = ResolveRequest(order);

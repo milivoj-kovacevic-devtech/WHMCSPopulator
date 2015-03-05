@@ -36,20 +36,6 @@ namespace WhmcsPopulator.Api
 		public string Password2 = "test123"; // If creating sub-account
 		[ApiParamName("companyname")]
 		public string CompanyName;
-		//[ApiParamName("address2")]
-		//public string Address2;
-		//[ApiParamName("permissions")]
-		//public string Permissions; // Can specify sub-account permissions eg manageproducts,managedomains
-		//[ApiParamName("generalemails")]
-		//public string GeneralEmails; // Set true to receive general email types
-		//[ApiParamName("productemails")]
-		//public string ProductEmails; // Set true to receive product related emails
-		//[ApiParamName("domainemails")]
-		//public string DomainEmails; // Set true to receive domain related emails
-		//[ApiParamName("invoiceemails")]
-		//public string InvoiceEmails; // Set true to receive billing related emails
-		//[ApiParamName("supportemails")]
-		//public string SupportEmails; // Set true to receive support ticket related emails
 
 		public AddContactRequest()
 		{

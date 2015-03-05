@@ -47,26 +47,7 @@ namespace WhmcsPopulator.Api
 		[FieldIgnored]
 		[ApiParamName("noemail")]
 		public string NoEmail = "true";
-        // for domain reg only
-		//[ApiParamName("contactid")]
-		//public string ContactId;
-		[FieldIgnored]
-        [ApiParamName("dnsmanagement")] // true to enable
-        public string DnsManagement = string.Empty;
-		//[ApiParamName("domainfields")] // a base64 encoded serialized array of the TLD specific field values
-		//public string DomainFields;
-		[FieldIgnored]
-        [ApiParamName("emailforwarding")] // true to enable
-        public string EmailForwarding = "true";
-		//[ApiParamName("idprotection")] // true to enable
-		//public string IdProtection;
-		//[ApiParamName("nameserver2")] // second nameserver
-		//public string Nameserver2;
-		//[ApiParamName("nameserver3")] // third nameserver
-		//public string Nameserver3;
-		//[ApiParamName("nameserver4")] // fourth nameserver
-		//public string Nameserver4;
-
+ 
         public AddOrderRequest()
         {
             ApiAction = WhmcsApi.AddOrder;
