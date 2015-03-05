@@ -38,6 +38,7 @@ namespace WhmcsPopulator.Shared
 			catch (Exception ex)
 			{
 				Log.Error("Client not added due to error: " + ex.Message);
+				Console.WriteLine("Client not added due to error.");
 				success = false;
 			}
 			Log.Info("InsertClient end.");
