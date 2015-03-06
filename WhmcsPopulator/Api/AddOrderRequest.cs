@@ -41,8 +41,8 @@ namespace WhmcsPopulator.Api
 		[ApiParamName("noemail")]
 		public string NoEmail = "true";
 
-		private List<string> Domains = new List<string>() { "bulkcloudmigrations.com", "cloudmigrationservice.net", "cloudteleporter.com", "fullyautomatedservices.com" };
-		private List<string> Products = new List<string>() { "430", "433", "434", "435" };
+		private List<string> Domains = ConfigManager.GetConfigList("domains");
+		private List<string> Products = ConfigManager.GetConfigList("products");
 
 		public AddOrderRequest(string clientId)
 		{

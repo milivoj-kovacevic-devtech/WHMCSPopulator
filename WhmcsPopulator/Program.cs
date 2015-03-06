@@ -18,9 +18,9 @@ namespace WhmcsPopulator
 			Log.Info("Main program init...");
 
 			Log.Debug("Parsing clients csv file...");
-			var clients = CsvCollector.Parse<AddClientRequest>(@"D:\clients.csv");
+			var clients = CsvCollector.Parse<AddClientRequest>(@ConfigManager.ClientsCsv);
 			Log.Debug("Parsing contacts csv file...");
-			var contacts = new List<AddContactRequest>(CsvCollector.Parse<AddContactRequest>(@"D:\contacts.csv"));
+			var contacts = new List<AddContactRequest>(CsvCollector.Parse<AddContactRequest>(@ConfigManager.ContactsCsv));
 			var rnd = new Random();
 			Log.Debug("Parsing done.");
 
