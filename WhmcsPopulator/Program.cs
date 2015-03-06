@@ -31,7 +31,7 @@ namespace WhmcsPopulator
 				if (!ApiController.InsertClient(client, out clientId)) continue;
 				// adding contacts
 				var numOfContacts = rnd.Next(4);
-				if (numOfContacts == 0)
+				if (numOfContacts == 0 || contacts.Count == 0)
 				{
 					var contactWithNoData = new AddContactRequest();
 					if (!ApiController.InsertContact(contactWithNoData, clientId)) continue;
@@ -40,7 +40,6 @@ namespace WhmcsPopulator
 				{
 					for (var i = 0; i <= numOfContacts; i++)
 					{
-						if (contacts.Count == 0) continue; // if there are no more contacts in list
 						var contact = contacts[0];
 						contacts.RemoveAt(0);
 						if (!ApiController.InsertContact(contact, clientId)) continue;
