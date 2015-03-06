@@ -74,7 +74,7 @@ namespace WhmcsPopulator.Shared
 			Log.Debug("Adding order for client id " + clientId);
 			var success = true;
 			var order = new AddOrderRequest(clientId);
-			//order.DomainName = SomeFunctionWhichWillGiveMeDomain(clientId); // TODO Implement this :)
+			Log.Info("Inserting order for product " + order.ProductId + ", and domain " + order.DomainName);
 			try
 			{
 				var request = ResolveRequest(order);
