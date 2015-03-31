@@ -169,6 +169,94 @@ namespace WhmcsPopulator.Shared
 			return success;
 		}
 
+		public bool GetInvoices(out List<string> invoiceIds)
+		{
+			// TODO Implement logging
+			var success = true;
+			var getInvoicesRequest = new GetInvoicesRequest();
+			invoiceIds = new List<string>();
+			try
+			{
+				var request = ResolveRequest(getInvoicesRequest);
+				var response = _restClient.Execute(request) as RestResponse;
+				dynamic processedResponse = ProcessResponse(response);
+
+				if (!IsSuccess(processedResponse)) throw new Exception("API returns error.");
+				foreach (var inv in processedResponse.invoices.invoice)
+				{
+					invoiceIds.Add(inv.id.ToString());
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine("Error getting invoices: " + ex.Message);
+				success = false;
+			}
+			return success;
+		}
+
+		public bool UpdateInvoice(string invoiceId)
+		{
+			var success = true;
+			var updateInvoiceRequest = new UpdateInvoiceRequest(invoiceId);
+
+			try
+			{
+				var request = ResolveRequest(updateInvoiceRequest);
+				var response = _restClient.Execute(request) as RestResponse;
+				dynamic processedResponse = ProcessResponse(response);
+
+				if (!IsSuccess(processedResponse)) throw new Exception("API returns error.");
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine("Error updating invoices: " + ex.Message);
+				success = false;
+			}
+
+			return success;
+		}
+
+		public bool UnsuspendModule(string accountId) // calls modulecreate API method
+		{
+			var success = true;
+			var unsuspendModuleRequest = new ModuleUnsuspendRequest(accountId);
+			try
+			{
+				var request = ResolveRequest(unsuspendModuleRequest);
+				var response = _restClient.Execute(request) as RestResponse;
+				dynamic processedResponse = ProcessResponse(response);
+
+				if (!IsSuccess(processedResponse)) throw new Exception("API returns error.");
+			}
+			catch (Exception ex)
+			{
+				Log.Error("Module not unsuspended: " + ex.Message);
+				success = false;
+			}
+			return success;
+		}
+
+		public bool PayInvoice(string invoiceId)
+		{
+			var success = true;
+			var addInvoicePayment = new AddInvoicePaymentRequest(invoiceId);
+			try
+			{
+				var request = ResolveRequest(addInvoicePayment);
+				var response = _restClient.Execute(request) as RestResponse;
+				dynamic processsedResponse = ProcessResponse(response);
+
+				if (!IsSuccess(processsedResponse)) throw new Exception("API returns error.");
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+				success = false;
+			}
+			return success;
+		}
+
 		private RestRequest ResolveRequest(object data)
 		{
 			Log.Info("ResolveRequest init...");
@@ -214,6 +302,5 @@ namespace WhmcsPopulator.Shared
 			if (responseJson == null) return false;
 			return responseJson.result == "success";
 		}
-
 	}
 }

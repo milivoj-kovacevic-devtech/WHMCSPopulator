@@ -50,6 +50,12 @@ namespace WhmcsPopulator.Api
             public const string GetOrderStatuses = "getorderstatuses";
             public const string AcceptOrder = "acceptorder";
 			public const string ModuleCreate = "modulecreate";
+
+			public const string GetInvoices = "getinvoices";
+			public const string UpdateInvoice = "updateinvoice";
+			public const string ModuleUnsuspend = "moduleunsuspend";
+			public const string UpdateClient = "updateclient";
+			public const string AddInvoicePayment = "addinvoicepayment";
         }
     }
 }

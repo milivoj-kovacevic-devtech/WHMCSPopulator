@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{50B59832-2D8F-4E78-A9AD-0B3821253282}</ProjectGuid>
+    <ProjectGuid>{617D7B95-C6AB-462A-8841-D445E08DE0A5}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WhmcsPopulator</RootNamespace>
-    <AssemblyName>WhmcsPopulator</AssemblyName>
+    <RootNamespace>InvoiceUpdater</RootNamespace>
+    <AssemblyName>InvoiceUpdater</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
@@ -34,32 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FileHelpers">
-      <HintPath>..\packages\FileHelpers.2.0.0.0\lib\FileHelpers.dll</HintPath>
-    </Reference>
-    <Reference Include="FileHelpers.ExcelStorage">
-      <HintPath>..\packages\FileHelpers.2.0.0.0\lib\FileHelpers.ExcelStorage.dll</HintPath>
-    </Reference>
-    <Reference Include="Interop.Excel">
-      <HintPath>..\packages\FileHelpers.2.0.0.0\lib\Interop.Excel.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="Interop.Office">
-      <HintPath>..\packages\FileHelpers.2.0.0.0\lib\Interop.Office.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="log4net">
-      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="RestSharp">
-      <HintPath>..\packages\RestSharp.105.0.1\lib\net4\RestSharp.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -68,34 +43,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Api\AcceptOrderRequest.cs" />
-    <Compile Include="Api\AddClientRequest.cs" />
-    <Compile Include="Api\AddContactRequest.cs" />
-    <Compile Include="Api\AddInvoicePaymentRequest.cs" />
-    <Compile Include="Api\AddOrderRequest.cs" />
-    <Compile Include="Api\GetClientsProductsRequest.cs" />
-    <Compile Include="Api\GetInvoicesRequest.cs" />
-    <Compile Include="Api\ModuleCreateRequest.cs" />
-    <Compile Include="Api\ModuleUnsuspendRequest.cs" />
-    <Compile Include="Api\UpdateClientRequest.cs" />
-    <Compile Include="Api\UpdateInvoiceRequest.cs" />
-    <Compile Include="Api\WhmcsBaseRequest.cs" />
-    <Compile Include="Shared\ApiController.cs" />
-    <Compile Include="Shared\ConfigManager.cs" />
-    <Compile Include="Shared\CsvCollector.cs" />
-    <Compile Include="Shared\ApiParamNameAttribute.cs" />
-    <Compile Include="Shared\MandatoryParameterAttribute.cs" />
-    <Compile Include="Shared\Md5Hasher.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
+    <ProjectReference Include="..\WhmcsPopulator\WhmcsPopulator.csproj">
+      <Project>{50b59832-2d8f-4e78-a9ad-0b3821253282}</Project>
+      <Name>WhmcsPopulator</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
